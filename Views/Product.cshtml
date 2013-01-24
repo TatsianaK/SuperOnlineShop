@@ -3,16 +3,15 @@
     Layout = "Masterpage.cshtml";
 }
 
+<div class="post">
 	<h1>@Umbraco.Field("title")</h1>
-	
 	<div>
 		@Umbraco.Field("description")
 	</div>
-	
 	<div>
 		$@Umbraco.Field("price")
 	</div>
-		
-		<div>
+	<div>
 		<a href="#">Add to cart</a>
-		</div>
+	</div>
+</div>

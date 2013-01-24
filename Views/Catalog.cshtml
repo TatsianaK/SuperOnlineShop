@@ -1,8 +1,9 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
-    Layout = null;
+    Layout = "Masterpage.cshtml";
 }
 
-Here is our catalog!
-	
-@Umbraco.RenderMacro("ChildCategories")
+<div class="post">
+	<h1>Categories</h1>
+	@Umbraco.RenderMacro("ChildCategories")
+</div>
