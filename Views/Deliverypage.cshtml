@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Masterpage.cshtml";
+}
+
+<div class="post">
+	<h2 class="title">@Umbraco.Field("title")</h2>
+		<p class="meta"><span class="date">January 15, 2013</span><span class="posted">Posted by <a href="#">Someone</a></span></p>
+			<div style="clear: both;">&nbsp;</div>
+			<div class="entry">
+				@Umbraco.Field("deliveryInformation")
+				@Umbraco.Field("contacts")
+				<p class="links"><a href="#" class="button">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="button">Comments</a></p>
+					</div>
+</div>
