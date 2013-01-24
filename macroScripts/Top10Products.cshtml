@@ -1,0 +1,15 @@
+﻿<h1>TOP 10 PRODUCTS</h1>
+	
+	@{
+		var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
+		var productContentTypeId = sqlHelper.ExecuteScalar<int>("select [nodeId] from cmsContentType where alias='Product'");
+		var contentNodeIds = sqlHelper.ExecuteReader("select TOP 3 nodeId, text from cmsContent inner join umbracoNode u on u.id = nodeId where contentType=" 
+				+ productContentTypeId.ToString() + " order by nodeId DESC");
+	
+		
+		while(contentNodeIds.Read()){
+			<div>
+				<a href="@umbraco.library.NiceUrl(@contentNodeIds.GetInt("nodeId"))">@contentNodeIds.GetString("text")</a>
+			</div>
+		}
+	}
