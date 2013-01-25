@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SuperOnlineShop.Models.ShoppingCartItem>
+<table>
+    <tr>
+        <th>Name
+        </th>
+        <th>Price
+        </th>
+        <th>Count
+        </th>
+        <th>Sum
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="width: 80px; text-align: center">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.TextBoxFor(modelItem => item.Count, new { style = "width: 40px;" })
+            </td>
+            <td style="width: 80px; text-align: center">
+            @Html.DisplayFor(modelItem => item.Price)
+            </>
+        <td>
+            @Html.ActionLink("Delete", "Index", new { id = item.Id })
+        </td>
+        </tr>
+    }
+</table>
+
+<br />
+<p class="links"><a href="#" class="button" id="recountPriceButton">Recount price</a></p>
+<br />
+Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#recountPriceButton').click(function (event) {
+            event.preventDefault();
+            var url = "ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
+
+            $.post(url, null, function (result) {
+                $('#totalPrice').text(result);
+            });
+        });
+    });
+</script>
+
+
