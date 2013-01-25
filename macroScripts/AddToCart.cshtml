@@ -1,0 +1,14 @@
+﻿@{
+	var defaultCount = 1;
+}
+
+<div>
+	<input type="text" name="count" id="count" maxlength="2" size="2" value="@defaultCount" />
+	<a href="javascript:AddToCart();return false;">Add to cart</a>
+</div>
+	
+<script type="text/javascript">
+	function AddToCart(){
+		alert("Add to cart!!! (id: " + @Model.Id + ", count: " + document.getElementById("count").value + ")");
+	}
+</script>
