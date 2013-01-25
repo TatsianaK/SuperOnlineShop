@@ -8,7 +8,7 @@ using SuperOnlineShop.Models;
 using Umbraco.Web.Mvc;
 
 namespace SuperOnlineShop.Controllers {
-    public class ShoppingCartController : Controller{//SurfaceController {
+    public class ShoppingCartController : SurfaceController {//SurfaceController {
         //
         // GET: /ShoppnigCart/
 
@@ -28,6 +28,12 @@ namespace SuperOnlineShop.Controllers {
             result.Add(new ShoppingCartItem{Id=2, Name = "Nokia Lumia 820", Price=690, Count=2});
             return result;
 
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(int? id, int? count)
+        {
+            return Json(new { status = "ok" });
         }
     }
 }
