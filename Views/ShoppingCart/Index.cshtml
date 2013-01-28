@@ -3,11 +3,11 @@
     <tr>
         <th>Name
         </th>
-        <th>Price
+        <th style="width: 80px; text-align: center">Price
         </th>
         <th>Count
         </th>
-        <th>Sum
+        <th style="width: 80px; text-align: center">Sum
         </th>
         <th></th>
     </tr>
@@ -24,7 +24,7 @@
                 @Html.TextBoxFor(modelItem => item.Count, new { style = "width: 40px;" })
             </td>
             <td style="width: 80px; text-align: center">
-            @Html.DisplayFor(modelItem => item.Price)
+            @Html.DisplayFor(modelItem => item.Sum)
             </>
         <td>
             @Html.ActionLink("Delete", "Index", new { id = item.Id })
@@ -42,7 +42,7 @@ Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $
     $(document).ready(function () {
         $('#recountPriceButton').click(function (event) {
             event.preventDefault();
-            var url = "umbraco/surface/ShoppingCart/RecountPrice";
+            var url = "ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
 
             $.post(url, null, function (result) {
                 $('#totalPrice').text(result);

@@ -4,17 +4,23 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SuperOnlineShop.Helpers;
 using SuperOnlineShop.Models;
 using Umbraco.Web.Mvc;
 
 namespace SuperOnlineShop.Controllers {
-    public class ShoppingCartController : SurfaceController {//SurfaceController {
+    public class ShoppingCartController : SurfaceController {
         //
         // GET: /ShoppnigCart/
 
         public ActionResult Index() {
-            List<ShoppingCartItem> shoppingCartItems = GetItems();//for testing
+            var connectionString = "server=epbyminw1853\\sqlexpress;database=Umbraco;user id=UmbracoUser;password=q123456789";
+            IEnumerable<int> ids = GetShoppingCartItemIds();
+
+            List<ShoppingCartItem> shoppingCartItems = ShoppingCartHelper.GetItems(connectionString, ids);
+
             ViewBag.TotalPrice = shoppingCartItems.Sum(item => item.Price*item.Count);
+
             return View(shoppingCartItems);
         }
 
@@ -22,11 +28,9 @@ namespace SuperOnlineShop.Controllers {
             return Json(1340); //for testing
         }
 
-        private List<ShoppingCartItem> GetItems(){
-            List<ShoppingCartItem> result = new List<ShoppingCartItem>();
-            result.Add(new ShoppingCartItem{Id=1, Name = "Nokia Lumia 920", Price=890, Count=1});
-            result.Add(new ShoppingCartItem{Id=2, Name = "Nokia Lumia 820", Price=690, Count=2});
-            return result;
+        private List<int> GetShoppingCartItemIds(){
+            List<int> ids = new List<int>(){1078,1079};//for testing
+            return ids;
 
         }
 
