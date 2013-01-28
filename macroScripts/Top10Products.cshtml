@@ -7,8 +7,10 @@
 	@{
 		var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
 		var productContentTypeId = sqlHelper.ExecuteScalar<int>("select [nodeId] from cmsContentType where alias='Product'");
-		var contentNodeIds = sqlHelper.ExecuteReader("select TOP " + countToDisplay.ToString() + " nodeId, text from cmsContent inner join umbracoNode u on u.id = nodeId where contentType=" 
-				+ productContentTypeId.ToString() + " order by nodeId DESC");
+		var contentNodeIds = 
+			sqlHelper.ExecuteReader("SELECT TOP " + countToDisplay.ToString()
+									+ " nodeId, text FROM cmsContent INNER JOIN umbracoNode u on u.id = nodeId WHERE contentType=" 
+				+ productContentTypeId.ToString() + "AND trashed = 0  ORDER BY nodeId DESC");
 	
 		
 		while(contentNodeIds.Read()){
