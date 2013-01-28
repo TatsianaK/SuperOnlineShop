@@ -32,11 +32,15 @@
 <div class="post">
 	<h1>Search results</h1>
 	
-	<br /> The following products have been found:
-
-	@foreach(var entry in dict){
-		<div>
-			<a href="@umbraco.library.NiceUrl(@entry.Key)">@entry.Value["NodeName"]</a>
-		</div>
+	<br />
+	@if(dict.Keys.Count > 0){
+		foreach(var entry in dict){
+			@: <div>
+				@: <a href="@umbraco.library.NiceUrl(@entry.Key)">@entry.Value["NodeName"]</a>
+			@: </div>
+		}
+	}
+	else{
+			@: No products found!!!
 	}
 </div>
