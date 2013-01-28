@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<SuperOnlineShop.Models.ShoppingCartItem>
+
+<div id="shoppingCartTable">
 @if (@Model.Any()) {
     <table>
         <tr>
@@ -28,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.Sum)
                 </>
         <td>
-            @Html.ActionLink("Delete", "Index", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class = "deleteButton"})
         </td>
             </tr>
         }
@@ -36,23 +38,34 @@
 
 
     <br />
-    <p class="links"><a href="#" class="button" id="recountPriceButton">Recount price</a></p>
+    <p class="links">@Html.ActionLink("Recount price", "RecountPrice",new {}, new {@class = "button", id="recountPriceButton"})</p>
+     
     <br />
-    <p>Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $ </p>
+    <h4>Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $ </h4>
 } else {
     <p>Shopping cart is empty. Please select any products from catalog.</p>   
 }
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#recountPriceButton').click(function (event) {
             event.preventDefault();
-            var url = "umbraco/surface/ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
+            var url = $(this).attr('href');
+            //var url = "umbraco/surface/ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
 
             $.post(url, null, function (result) {
                 $('#totalPrice').text(result);
             });
         });
+
+        $('.deleteButton').click(function (event) {
+            event.preventDefault();
+            var url = $(this).attr('href');
+            $('#shoppingCartTable').load(url);
+        });
+
     });
+
 </script>
 

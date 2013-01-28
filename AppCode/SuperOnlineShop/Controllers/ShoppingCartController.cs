@@ -26,17 +26,22 @@ namespace SuperOnlineShop.Controllers {
             return View(shoppingCartItems);
         }
 
+        public ActionResult Delete(int id) {
+           DeleteItemFromSession(id);
+           return RedirectToAction("Index");
+        }
+
         public ActionResult RecountPrice() {
             return Json(1340); //for testing
         }
 
         [HttpPost]
         public ActionResult AddToCart(int id, int count) {
-            try{
+            try {
                 AddItemsToSession(id, count);
                 return Json(new { status = "ok" });
-            } catch (Exception ex){
-                return Json (new { error = ex.Message });
+            } catch (Exception ex) {
+                return Json(new { error = ex.Message });
             }
         }
 
@@ -56,12 +61,22 @@ namespace SuperOnlineShop.Controllers {
             Session["ShoppingCartItems"] = shoppingCartItems;
         }
 
-        private Dictionary<int, int> GetItemsFromSession(){
+        private Dictionary<int, int> GetItemsFromSession() {
             Dictionary<int, int> sessionShoppingCartItems = new Dictionary<int, int>();
             if (Session["ShoppingCartItems"] != null) {
                 sessionShoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
             }
             return sessionShoppingCartItems;
         }
+
+        private void DeleteItemFromSession(int id) {
+            if (Session["ShoppingCartItems"] != null) {
+                Dictionary<int, int> shoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
+                if (shoppingCartItems.Any(item => item.Key == id)) {
+                    shoppingCartItems.Remove(id);
+                }
+            }
+        }
+
     }
 }
