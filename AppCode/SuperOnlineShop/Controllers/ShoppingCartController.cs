@@ -45,6 +45,15 @@ namespace SuperOnlineShop.Controllers {
             }
         }
 
+        public ActionResult Order(){
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Order(OrderInfo orderInfo){
+            return View();
+        }
+
         private void AddItemsToSession(int id, int count) {
             Dictionary<int, int> shoppingCartItems = new Dictionary<int, int>();
 

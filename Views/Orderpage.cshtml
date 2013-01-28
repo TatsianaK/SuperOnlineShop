@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Masterpage.cshtml";
+}
+<div class="post">
+	<h2 class="title">@Umbraco.Field("title")</h2>
+		<br/>
+			<div class="entry">
+				@Html.Action("Order", "ShoppingCart")
+			</div>
+</div>

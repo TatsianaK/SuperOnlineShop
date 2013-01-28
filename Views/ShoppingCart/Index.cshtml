@@ -36,12 +36,15 @@
         }
     </table>
 
-
-    <br />
-    <p class="links">@Html.ActionLink("Recount price", "RecountPrice",new {}, new {@class = "button", id="recountPriceButton"})</p>
-     
     <br />
     <h4>Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $ </h4>
+    
+    <p class="links">
+        @Html.ActionLink("Recount price", "RecountPrice",new {}, new {@class = "button", id="recountPriceButton"})
+        <a href="Order" class="button" id="orderButton">Order now</a>
+    </p>
+     
+   
 } else {
     <p>Shopping cart is empty. Please select any products from catalog.</p>   
 }
@@ -62,7 +65,9 @@
         $('.deleteButton').click(function (event) {
             event.preventDefault();
             var url = $(this).attr('href');
-            $('#shoppingCartTable').load(url);
+            if (confirm("Are you sure to delete?")) {
+                $('#shoppingCartTable').load(url);
+            }
         });
 
     });
