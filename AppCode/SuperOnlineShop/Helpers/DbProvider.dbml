@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Umbraco" Class="DbProviderDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=epbyminw1853\sqlexpress;Initial Catalog=Umbraco;Persist Security Info=True;User ID=UmbracoUser" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="UmbracoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.cmsContentXml" Member="cmsContentXmls">
+    <Type Name="cmsContentXml">
+      <Column Name="nodeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="xml" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+    </Type>
+  </Table>
+</Database>
