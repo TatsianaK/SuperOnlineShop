@@ -1,4 +1,4 @@
-@*
+﻿@*
 LIST SUBPAGES BY LIMIT AND DATETIME
 ===================================
 This snippet shows how easy it is to combine different queries. It lists the children of the currentpage which is
@@ -13,10 +13,26 @@ NOTE: It is safe to remove this comment (anything between @ * * @), the code tha
 
 @inherits umbraco.MacroEngines.DynamicNodeContext
 
-@{ var numberOfItems = 10; }
+@{ 
+	var numberOfItems = 10; 
+	var sortBy = HttpContext.Current.Request["sortBy"];
+	var direction = HttpContext.Current.Request["direction"];
+	
+	var orderBy = "UpdateDate";
+	switch(sortBy){
+		case "price": orderBy = "Price"; break;
+		case "name": orderBy = "Name"; break;
+	}
+	
+	var items = @Model.Children.Where("Visible").OrderBy(orderBy).Take(numberOfItems);
+	if(direction == "desc"){
+		items.Reverse();
+	}
+ }
+
 <ul>
-    @foreach (var item in @Model.Children.Where("Visible").OrderBy("UpdateDate").Take(numberOfItems))
+    @foreach (var item in @items)
     {
-        <li><a href="@item.Url">@item.Name</a></li>
+        <li><a href="@item.Url">@item.Name ($@item.Price)</a></li>
     }
 </ul>
