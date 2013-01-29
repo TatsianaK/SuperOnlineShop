@@ -2,82 +2,195 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
-    <link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+	<title>@ViewBag.Title</title>
+	<link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/constants.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet_boxes.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet_content.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/css/TextStyles.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 </head>
 <body>
-	
-<div id="menu-wrapper">
-	
-	<div id="menu" >
-		@Umbraco.RenderMacro("TopMenu")
-	</div>
-	<!-- end #menu -->
-</div>
-<div id="header-wrapper">
-	<div id="header">
-		<div id="logo">
-			<h1><a href="#">Re<span>creation</span></a></h1>
-			<p>Template design by <a href="http://www.freecsstemplates.org">FCT</a></p>
-		</div>
-	</div>
-</div>
-@*<div id="banner"><a href="#" class="img-style"><img src="images/img04.jpg" width="1000" height="350" alt="" /></a></div>*@
-<div id="wrapper">
-	<!-- end #header -->
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-				<div id="content">
-				@RenderBody()
-					
-					<div style="clear: both;">&nbsp;</div>
-				</div>
-				<!-- end #content -->
-				<div id="sidebar">
-					<ul>
-						<li>
-							<h2>Searh Here:</h2>
-							<div id="search" >
-								<form method="get" action="#">
-									<div>
-										<input type="text" name="s" id="search-text" value="" />
-										<input type="submit" id="search-submit" value="" />
+	<div class="bg2_body" align="center">
+		<div class="row_1">
+			<div class="width_table">
+				<div class="cl_both">
+					<div class="logo">
+						<a href="/">
+							<img width="218" height="84" border="0" alt="" src="images/logo.gif">
+						</a>
+					</div>
+					<div align="right" class="fl_right">
+						<div align="right" class="cart_bg">
+							<div><b>Shopping Cart</b>  now in your cart <a href="http://localhost:54802/shopping_cart.php"><strong>0</strong>  items</a></div>
+						</div>
+						<div class="navigation">
+							<div class="navigation_wrapper_tl">
+								<div class="navigation_wrapper_tr">
+									<div class="navigation_wrapper_rep fs_lh">
+										<table cellspacing="0" cellpadding="0" border="0">
+											<tbody>
+												<tr>
+													<td class="languages">
+														<table cellspacing="0" cellpadding="0" border="0" align="center">
+															<tbody>
+																<tr>
+																	<td style="padding: 0px 0px 2px 0px;">Language:&nbsp;&nbsp;</td>
+																	<td style="width: 100%;">
+																		<form method="get" action="http://localhost:54802/index.php" name="languages">
+																			<select class="select" onchange="this.form.submit();" name="language">
+																				<option value="en">English</option>
+																				<option value="de">Deutsch</option>
+																				<option value="es">Español</option>
+																			</select>
+																		</form>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+													<td class="currencies">
+														<table cellspacing="0" cellpadding="0" border="0" align="right">
+															<tbody>
+																<tr>
+																	<td style="padding: 0px 0px 0px 0px;">Currencies:&nbsp;&nbsp;</td>
+																	<td style="width: 100%;">
+																		<form method="get" action="http://localhost:54802/index.php" name="currencies">
+																			<select class="select" onchange="this.form.submit();" name="currency">
+																				<option selected="" value="USD">US Dollar</option>
+																				<option value="EUR">Euro</option>
+																			</select>
+																		</form>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-								</form>
+								</div>
 							</div>
-							<div style="clear: both;">&nbsp;</div>
-						</li>
-						<li>
-							<h2>Header</h2>
-							<p>Some text. Mauris vitae nisl nec metus placerat perdiet est. Phasellus dapibus semper consectetuer hendrerit.</p>
-						</li>
-						<li>
-							<h2>Categories</h2>
-							<ul>
-								<li><a href="#">Category1</a></li>
-								<li><a href="#">Category2</a></li>
-								<li><a href="#">Category3</a></li>
-								<li><a href="#">Category4</a></li>
-								<li><a href="#">Category5</a></li>
-								<li><a href="#">Category6</a></li>
-							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
+					<div class="cl_both">
+						@Umbraco.RenderMacro("TopMenu")
+					</div>
 				</div>
-				<!-- end #sidebar -->
-				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+		<div align="center" id="content">
+			<div class="row_2">
+				<table class="main_table" cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td class="box_width_td_left">
+							@RenderBody()
+						</td>
+						<td class="content_width_td">
+							
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="row_4">
+				<div class="width_table footer">
+					@Umbraco.RenderMacro("BottomMenu")
+
+					<div class="footer2_td" style="vertical-align: bottom">
+						<div class="image_left">
+							<a href="http://www.epam.com/en.html" target="_blank">
+								<img width="80" height="19" border="0" src="images/epam.png" alt="Excellence in Software Engineering" title="EPAM Systems" />
+							</a>
+						</div>
+						<div class="image_right">
+							<a href="http://www.epam.com/en.html">
+								<img width="80" height="19" border="0" src="images/epam.png" alt="Excellence in Software Engineering" title="EPAM Systems" />
+							</a>
+						</div>
+						<div>
+							&copy; 2013. EPAM Systems. All Rights Reserved.
+								<a target="_blank" href="http://www.epam.com/privacy.html">Privacy Policy</a>
+						</div>
+						<div>
+							Excellence in Software Engineering
+						</div>
+						<div class="clear_both"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end #page -->
-</div>
-<div id="footer">
-	<p>&copy; Design by Anastasia, Ivan, Tatsiana. Epam Systems, 2013.</p>
-</div>
-<!-- end #footer -->
+
+	<div id="menu-wrapper">
+
+		<div id="menu">
+			@Umbraco.RenderMacro("TopMenu")
+		</div>
+		<!-- end #menu -->
+	</div>
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><a href="#">Re<span>creation</span></a></h1>
+				<p>Template design by <a href="http://www.freecsstemplates.org">FCT</a></p>
+			</div>
+		</div>
+	</div>
+	@*<div id="banner"><a href="#" class="img-style"><img src="images/img04.jpg" width="1000" height="350" alt="" /></a></div>*@
+	<div id="wrapper">
+		<!-- end #header -->
+		<div id="page">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="content">
+
+						<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- end #content -->
+					<div id="sidebar">
+						<ul>
+							<li>
+								<h2>Searh Here:</h2>
+								<div id="search">
+									<form method="get" action="#">
+										<div>
+											<input type="text" name="s" id="search-text" value="" />
+											<input type="submit" id="search-submit" value="" />
+										</div>
+									</form>
+								</div>
+								<div style="clear: both;">&nbsp;</div>
+							</li>
+							<li>
+								<h2>Header</h2>
+								<p>Some text. Mauris vitae nisl nec metus placerat perdiet est. Phasellus dapibus semper consectetuer hendrerit.</p>
+							</li>
+							<li>
+								<h2>Categories</h2>
+								<ul>
+									<li><a href="#">Category1</a></li>
+									<li><a href="#">Category2</a></li>
+									<li><a href="#">Category3</a></li>
+									<li><a href="#">Category4</a></li>
+									<li><a href="#">Category5</a></li>
+									<li><a href="#">Category6</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<!-- end #sidebar -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		<!-- end #page -->
+	</div>
+	<div id="footer">
+		<p>&copy; Design by Anastasia, Ivan, Tatsiana. Epam Systems, 2013.</p>
+	</div>
+	<!-- end #footer -->
 </body>
 </html>

@@ -20,28 +20,67 @@ NOTE: It is safe to remove this comment (anything between @ * * @), the code tha
 
 @inherits umbraco.MacroEngines.DynamicNodeContext
 @{ 
-	var level = String.IsNullOrEmpty(Parameter.Level) ? 1 : int.Parse(Parameter.Level); 
-
-	var ulClass = String.IsNullOrEmpty(Parameter.UlClass) ? "" : String.Format(" class=\"{0}\"", Parameter.UlClass); 
+	int level = String.IsNullOrEmpty(Parameter.Level) ? 1 : int.Parse(Parameter.Level);
 	var parent = @Model.AncestorOrSelf(level);
-	var selectedClass = "current_page_item";
+	var selectedClass = " class ='selected_menu_item'";
+	var ordinaryClass = " class ='menu_item'";
 
 	if (parent != null && true) {
-		
-		<ul@Html.Raw(ulClass)>
-			
-			@{var selected = (Model.Id==parent.Id) ? " class=\""+@selectedClass+"\"" : "";}
-			<li@Html.Raw(@selected)>
-				<a href="@parent.Url">Home</a>
-			</li>
-			 
-			 
-			@foreach (var item in parent.Children.Where("Visible")) {
-			selected = Array.IndexOf(Model.Path.Split(','), item.Id.ToString()) >= 0 ? " class=\""+@selectedClass+"\"" : "";
-			<li@Html.Raw(selected)>
-				<a href="@item.Url">@item.Name</a>
-			</li>
-			}
-		</ul>
+		var menuItems = parent.Children.Where("Visible");
+
+<div class="menu_wrapper_tl">
+	<div class="menu_wrapper_tr">
+		<div class="menu_wrapper_rep fs_lh">
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<td class="menu">
+						<ul>
+							
+		@{var selected = (Model.Id == parent.Id) ? @selectedClass : @ordinaryClass;}
+							
+							<li@Html.Raw(@selected)>
+								<a href="@parent.Url">@parent.Name</a>
+							</li>
+
+		@foreach (var item in menuItems){
+							
+							<li class="menu_separator"></li>
+
+		selected = Array.IndexOf(Model.Path.Split(','), item.Id.ToString()) >= 0 ? @selectedClass : @ordinaryClass;
+							
+							<li@Html.Raw(@selected)>
+								<a href="@item.Url">@item.Name</a>
+							</li>
+		}
+						</ul>
+					</td>
+					<td class="search">
+						<table cellspacing="0" cellpadding="0" border="0" align="right" class="table">
+							<tr>
+								<td class="search_input-rep">
+									<table cellspacing="0" cellpadding="0" border="0" class="search_input-left">
+											<tr>
+												<td class="search_input-right">
+													<input type="text" onfocus="if(this.value ==' Search entire store...' ) this.value=''" onblur="if(this.value=='') this.value=' Search entire store...'" value=" Search entire store..." style="width: 100%;" class="go" name="keywords"></td>
+											</tr>
+									</table>
+								</td>
+								<td>&nbsp;&nbsp;</td>
+								<td class="search_button-rep">
+									<table cellspacing="0" cellpadding="0" border="0" class="search_button-left">
+											<tr>
+												<td class="search_button-right">
+													<input type="image" border="0" alt="" src="images/button_search_prod.gif"></td>
+											</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
 	}
 }
