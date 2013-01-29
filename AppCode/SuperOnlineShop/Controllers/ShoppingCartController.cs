@@ -90,6 +90,20 @@ namespace SuperOnlineShop.Controllers {
         }
 
         private void UpdateBoughtProductsCount(Dictionary<int, int> orderedProducts) {
+            using (DbProviderDataContext dbContext = new DbProviderDataContext(ConfigurationManager.AppSettings["umbracoDbDSN"])) {
+                if (orderedProducts != null) {
+                    foreach (var kvp in orderedProducts) {
+                        var boughtProduct = dbContext.BoughtProducts.Where(x => x.NodeId == kvp.Key).FirstOrDefault();
+                        if (boughtProduct == null) {
+                            dbContext.BoughtProducts.InsertOnSubmit(new BoughtProduct { NodeId = kvp.Key, Count = kvp.Value });
+                        } else {
+                            boughtProduct.Count = boughtProduct.Count + kvp.Value;
+                        }
+                    }
+
+                    dbContext.SubmitChanges();
+                }
+            }
         }
     }
 }

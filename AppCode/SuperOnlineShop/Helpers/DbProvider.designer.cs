@@ -72,6 +72,14 @@ namespace SuperOnlineShop.Helpers
 				return this.GetTable<cmsContentXml>();
 			}
 		}
+		
+		public System.Data.Linq.Table<BoughtProduct> BoughtProducts
+		{
+			get
+			{
+				return this.GetTable<BoughtProduct>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.cmsContentXml")]
@@ -156,6 +164,51 @@ namespace SuperOnlineShop.Helpers
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BoughtProducts")]
+	public partial class BoughtProduct
+	{
+		
+		private int _NodeId;
+		
+		private int _Count;
+		
+		public BoughtProduct()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NodeId", DbType="Int NOT NULL")]
+		public int NodeId
+		{
+			get
+			{
+				return this._NodeId;
+			}
+			set
+			{
+				if ((this._NodeId != value))
+				{
+					this._NodeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int NOT NULL")]
+		public int Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this._Count = value;
+				}
 			}
 		}
 	}

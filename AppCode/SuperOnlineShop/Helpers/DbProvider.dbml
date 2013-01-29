@@ -6,4 +6,10 @@
       <Column Name="xml" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
     </Type>
   </Table>
+  <Table Name="dbo.BoughtProducts" Member="BoughtProducts">
+    <Type Name="BoughtProduct">
+      <Column Name="NodeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>
