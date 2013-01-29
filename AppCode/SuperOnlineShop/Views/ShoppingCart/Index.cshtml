@@ -1,54 +1,76 @@
 ﻿@model IEnumerable<SuperOnlineShop.Models.ShoppingCartItem>
-<table>
-    <tr>
-        <th>Name
-        </th>
-        <th style="width: 80px; text-align: center">Price
-        </th>
-        <th>Count
-        </th>
-        <th style="width: 80px; text-align: center">Sum
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model) {
+<div id="shoppingCartTable">
+@if (@Model.Any()) {
+    <table>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td style="width: 80px; text-align: center">
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.TextBoxFor(modelItem => item.Count, new { style = "width: 40px;" })
-            </td>
-            <td style="width: 80px; text-align: center">
-            @Html.DisplayFor(modelItem => item.Sum)
-            </>
-        <td>
-            @Html.ActionLink("Delete", "Index", new { id = item.Id })
-        </td>
+            <th>Name
+            </th>
+            <th style="width: 80px; text-align: center">Price
+            </th>
+            <th>Count
+            </th>
+            <th style="width: 80px; text-align: center">Sum
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
 
-<br />
-<p class="links"><a href="#" class="button" id="recountPriceButton">Recount price</a></p>
-<br />
-Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="width: 80px; text-align: center">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.Count, new { style = "width: 40px;" })
+                </td>
+                <td style="width: 80px; text-align: center">
+                @Html.DisplayFor(modelItem => item.Sum)
+                </>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class = "deleteButton"})
+        </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <h4>Total price: <span id="totalPrice">@ViewBag.TotalPrice</span> $ </h4>
+    
+    <p class="links">
+        @Html.ActionLink("Recount price", "RecountPrice",new {}, new {@class = "button", id="recountPriceButton"})
+        <a href="Order" class="button" id="orderButton">Order now</a>
+    </p>
+     
+   
+} else {
+    <p>Shopping cart is empty. Please select any products from catalog.</p>   
+}
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#recountPriceButton').click(function (event) {
             event.preventDefault();
-            var url = "ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
+            var url = $(this).attr('href');
+            //var url = "umbraco/surface/ShoppingCart/RecountPrice"; //umbraco/surface/{controller_name}/{action}
 
             $.post(url, null, function (result) {
                 $('#totalPrice').text(result);
             });
         });
-    });
-</script>
 
+        $('.deleteButton').click(function (event) {
+            event.preventDefault();
+            var url = $(this).attr('href');
+            if (confirm("Are you sure to delete?")) {
+                $('#shoppingCartTable').load(url);
+            }
+        });
+
+    });
+
+</script>
 

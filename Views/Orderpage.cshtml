@@ -2,11 +2,10 @@
 @{
     Layout = "Masterpage.cshtml";
 }
-
-	<div class="post">
+<div class="post">
 	<h2 class="title">@Umbraco.Field("title")</h2>
 		<br/>
 			<div class="entry">
-				@Html.Action("Index", "ShoppingCart")
+				@Html.Action("Order", "ShoppingCart")
 			</div>
 </div>
