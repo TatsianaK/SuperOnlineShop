@@ -54,7 +54,12 @@ namespace SuperOnlineShop.Controllers {
 
         [HttpPost]
         public ActionResult Order(OrderInfo orderInfo) {
-            UpdateBoughtProductsCount(orderInfo.orderedProducts);
+            // test code
+            if (Session["ShoppingCartItems"] != null)
+            {
+                UpdateBoughtProductsCount((Dictionary<int, int>)Session["ShoppingCartItems"]);
+            }
+            //UpdateBoughtProductsCount(orderInfo.orderedProducts);
 
             return View();
         }
