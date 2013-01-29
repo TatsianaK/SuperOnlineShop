@@ -1,0 +1,56 @@
+﻿@*
+NAVIGATION BY LEVEL
+=================================
+This snippet makes it easy to do navigation based lists! It'll automatically list all children of a page with a certain 
+level in the hierarchy that's published and visible (it'll filter out any pages with a property named "umbracoNaviHide"
+that's set to 'true'.
+
+How to Customize for re-use (only applies to Macros, not if you insert this snippet directly in a template):
+- If you add a Macro Parameter with the alias of "Level" you can use this macro for both level 1 and level 2 navigations
+- If you add a Macro Parameter with the alias of "ulClass" you can specify different css classes for the <UL/> element
+
+How it works:
+- The first two lines (var level... and var ulClass) assigns default values if none is specified via Macro Parameters
+- Then it finds the correct parent based on the level and assigns it to the 'parent' variable.
+- Then it runs through all the visible children in the foreach loop and outputs a list item
+- Inside the list item it checks if the page added to the list is a parent of the current page. Then it marks it 'selected'
+
+NOTE: It is safe to remove this comment (anything between @ * * @), the code that generates the list is only the below!
+*@
+
+@inherits umbraco.MacroEngines.DynamicNodeContext
+@{ 
+	int level = String.IsNullOrEmpty(Parameter.Level) ? 1 : int.Parse(Parameter.Level);
+	var parent = @Model.AncestorOrSelf(level);
+	var selectedClass = " class ='selected_menu_item'";
+	var ordinaryClass = " class ='menu_item'";
+
+	if (parent != null && true) {
+		var menuItems = parent.Children.Where("Visible");
+
+<div class="footer_wrapper_tl">
+	<div class="footer_wrapper_tr">
+		<div class="footer_wrapper_rep fs_lh">
+			<table cellspacing="0" cellpadding="0" border="0" align="center"><tr>
+		@{var selected = (Model.Id == parent.Id) ? @selectedClass : @ordinaryClass;}
+							
+				<td@Html.Raw(@selected)>
+					<a href="@parent.Url">@parent.Name</a>
+				</td>
+
+		@foreach (var item in menuItems){
+							
+				<td class="footer_separator"></td>
+
+		selected = Array.IndexOf(Model.Path.Split(','), item.Id.ToString()) >= 0 ? @selectedClass : @ordinaryClass;
+							
+				<td@Html.Raw(@selected)>
+					<a href="@item.Url">@item.Name</a>
+				</td>
+		}
+			</tr></table>
+		</div>
+	</div>
+</div>
+	}
+}
