@@ -1,0 +1,46 @@
+﻿@functions{
+	public string GetDirectionSign(string sortLinkName){
+		var sortBy = HttpContext.Current.Request["sortBy"];
+		var direction = HttpContext.Current.Request["direction"];
+		
+		if(sortBy == sortLinkName){
+			if(direction == "asc"){
+				return "&#8593;";
+			}else if(direction == "desc"){
+				return "&#8595;";
+			}
+		}
+		
+		return string.Empty;
+	}
+	
+	public string GetDirectionToSort(){
+		var direction = HttpContext.Current.Request["direction"];
+		var directionToSort = string.Empty;
+		if(direction == "asc"){
+			return "desc";
+		}else{
+			return "asc";
+		}	
+		
+		return string.Empty;
+	}
+}
+
+@{
+	string linksString = @Parameter.links;
+	var links = linksString.Split(',').Select(x => x.Trim()).ToArray();
+}
+
+@foreach(var link in links){
+	<a href="javascript:void();" onclick="sortBy('@link', '@GetDirectionToSort()');">
+		<span>@Html.Raw(GetDirectionSign(link))</span>
+		Sort by @link
+	</a>	
+}
+	
+<script type="text/javascript">
+	function sortBy(parameter, direction){
+		document.location.href = document.location.href.split('?')[0] + "?sortBy=" + parameter + "&direction=" + direction;
+	}
+</script>
