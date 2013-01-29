@@ -51,6 +51,8 @@ namespace SuperOnlineShop.Controllers {
 
         [HttpPost]
         public ActionResult Order(OrderInfo orderInfo){
+            UpdateBoughtProductsCount(orderInfo.orderedProducts);
+
             return View();
         }
 
@@ -87,5 +89,7 @@ namespace SuperOnlineShop.Controllers {
             }
         }
 
+        private void UpdateBoughtProductsCount(Dictionary<int, int> orderedProducts) {
+        }
     }
 }
