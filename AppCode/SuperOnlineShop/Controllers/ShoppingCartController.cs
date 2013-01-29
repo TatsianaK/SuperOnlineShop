@@ -15,24 +15,27 @@ namespace SuperOnlineShop.Controllers {
         // GET: /ShoppnigCart/
 
         public ActionResult Index() {
-            var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
+            List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
+            return View(shoppingCartItems);
+        }
 
-            Dictionary<int, int> sessionShoppingCartItems = GetItemsFromSession();
+        /// <summary>
+        /// Recount price method
+        /// </summary>
+        /// <param name="model">Shopping cart items</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Index(IEnumerable<ShoppingCartItem> model) {
+            var updatedItems = model.Select(item => new { item.Id, item.Count }).ToDictionary(item => item.Id, item => item.Count);
+            UpdateCartItems(updatedItems);
 
-            List<ShoppingCartItem> shoppingCartItems = ShoppingCartHelper.GetItems(connectionString, sessionShoppingCartItems);
-
-            ViewBag.TotalPrice = shoppingCartItems.Sum(item => item.Price * item.Count);
-
+            List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
             return View(shoppingCartItems);
         }
 
         public ActionResult Delete(int id) {
-           DeleteItemFromSession(id);
-           return RedirectToAction("Index");
-        }
-
-        public ActionResult RecountPrice() {
-            return Json(1340); //for testing
+            DeleteItemFromSession(id);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -45,13 +48,22 @@ namespace SuperOnlineShop.Controllers {
             }
         }
 
-        public ActionResult Order(){
+        public ActionResult Order() {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Order(OrderInfo orderInfo){
+        public ActionResult Order(OrderInfo orderInfo) {
             return View();
+        }
+
+        private List<ShoppingCartItem> GetShoppingCartItems() {
+            var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
+
+            Dictionary<int, int> sessionShoppingCartItems = GetItemsFromSession();
+
+            List<ShoppingCartItem> shoppingCartItems = ShoppingCartHelper.GetItems(connectionString, sessionShoppingCartItems);
+            return shoppingCartItems;
         }
 
         private void AddItemsToSession(int id, int count) {
@@ -68,6 +80,13 @@ namespace SuperOnlineShop.Controllers {
             }
 
             Session["ShoppingCartItems"] = shoppingCartItems;
+        }
+
+        private void UpdateCartItems(Dictionary<int, int> items) {
+            Dictionary<int, int> cartItems = GetItemsFromSession();
+            foreach (var item in items) {
+                cartItems[item.Key] = item.Value;
+            }
         }
 
         private Dictionary<int, int> GetItemsFromSession() {
