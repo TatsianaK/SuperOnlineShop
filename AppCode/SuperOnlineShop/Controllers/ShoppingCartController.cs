@@ -54,13 +54,13 @@ namespace SuperOnlineShop.Controllers {
 
         [HttpPost]
         public ActionResult Order(OrderInfo orderInfo) {
-            // test code
+            ViewBag.Message = "Thank you. Your order will be processed";
+// test code
             if (Session["ShoppingCartItems"] != null)
             {
                 UpdateBoughtProductsCount((Dictionary<int, int>)Session["ShoppingCartItems"]);
             }
             //UpdateBoughtProductsCount(orderInfo.orderedProducts);
-
             return View();
         }
 

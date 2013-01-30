@@ -35,26 +35,6 @@
                     </td>
                 </tr>
             }
-
-            @*@foreach (var item in Model) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td style="width: 80px; text-align: center">
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(modelItem => item.Count, new { style = "width: 40px;" })
-                    </td>
-                    <td style="width: 80px; text-align: center">
-                        @Html.DisplayFor(modelItem => item.Sum)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "deleteButton" })
-                    </td>
-                </tr>
-            }*@
         </table>
 
         <br />
@@ -62,7 +42,6 @@
     
         <p class="links">
             @Html.ActionLink("Recount price", "RecountPrice", new { }, new { @class = "button", id = "recountPriceButton" })
-            @*<input type="submit" value="Post Index" class="button" />*@
             <a href="Order" class="button" id="orderButton">Order now</a>
         </p>
        
