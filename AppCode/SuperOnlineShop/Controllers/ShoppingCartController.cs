@@ -54,12 +54,15 @@ namespace SuperOnlineShop.Controllers {
 
         [HttpPost]
         public ActionResult Order(OrderInfo orderInfo) {
-            ViewBag.Message = "Thank you. Your order will be processed";
+            ViewBag.Message = "Thank you. Your order will be processed. We will contact you within 10 minutes";
             // test code
+            var OrderedProducts = (Dictionary<int, int>)Session["ShoppingCartItems"];
             if (Session["ShoppingCartItems"] != null)
             {
-                UpdateBoughtProductsCount((Dictionary<int, int>)Session["ShoppingCartItems"]);
+                UpdateBoughtProductsCount(OrderedProducts);
             }
+            orderInfo.orderedProducts = OrderedProducts;
+            //send orderInfo to admin
             //UpdateBoughtProductsCount(orderInfo.orderedProducts);
             return View();
         }

@@ -305,7 +305,7 @@ a:hover {
 
 .button
 {
-	padding: 10px 25px;
+	padding: 5px 10px;
 	background: #3E282A;
 	border-radius: 5px;
 	text-transform: uppercase;
@@ -465,6 +465,8 @@ a:hover {
 {
     display: none;
 }
+
+
 
 
 
