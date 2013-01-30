@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SuperOnlineShop.Helpers;
 using SuperOnlineShop.Models;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic.member;
 
 namespace SuperOnlineShop.Controllers {
     public class ShoppingCartController : SurfaceController {
@@ -73,6 +74,75 @@ namespace SuperOnlineShop.Controllers {
             return Json(new {Count = shoppingCartItems.Count, TotalPrice = shoppingCartItems.Sum(item=> item.Count*item.Price)});
         }
 
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel registerModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            if (Member.GetMemberFromEmail(registerModel.Email) != null)
+            {
+                ModelState.AddModelError("email", "There is already a user with such an email!!!");
+                return View();
+            }
+            if (Member.GetMemberByName(registerModel.Name, false).Count() > 0)
+            {
+                ModelState.AddModelError("name", "There is already a user with such a name!!!");
+                return View();
+            }
+
+            MemberType demoMemberType = MemberType.GetByAlias("Customer");
+            Member newMember = Member.MakeNew(registerModel.Name, demoMemberType, new umbraco.BusinessLogic.User(0));
+
+            newMember.Email = registerModel.Email;
+            newMember.Password = registerModel.Password;
+            newMember.LoginName = registerModel.Name;
+
+            newMember.getProperty("address").Value = registerModel.Address; //set value of property with alias ‘address’
+            newMember.getProperty("phoneNumber").Value = registerModel.PhoneNumber; //set value of property with alias ‘phoneNumber’
+            newMember.getProperty("fullName").Value = registerModel.FullName; //set value of property with alias ‘fullName’
+
+            newMember.Save();
+
+            return View("SuccessfullyRegistered");
+        }
+
+        public ActionResult SuccessfullyRegistered()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel loginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            //var m = Member.GetMemberFromLoginName(loginModel.Login);
+            var m = Member.GetMemberFromLoginNameAndPassword(loginModel.Login, loginModel.Password);
+            if (m == null)
+            {
+                ModelState.AddModelError("login", "Login and password do not match!!!");
+
+                return View();
+            }
+
+            return Content("Logged in!!!");
+        }
 
         private List<ShoppingCartItem> GetShoppingCartItems() {
             var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
