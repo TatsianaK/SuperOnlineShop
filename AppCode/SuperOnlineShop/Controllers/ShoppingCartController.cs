@@ -141,6 +141,8 @@ namespace SuperOnlineShop.Controllers {
                 return View();
             }
 
+            ControllerContext.HttpContext.Response.Redirect("/");
+
             return Content("Logged in!!!");
         }
 
