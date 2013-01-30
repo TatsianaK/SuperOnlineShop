@@ -9,6 +9,11 @@
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.TextBoxFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+    <div>
         @Html.LabelFor(m => m.Email)
         @Html.TextBoxFor(m => m.Email)
         @Html.ValidationMessageFor(m => m.Email)

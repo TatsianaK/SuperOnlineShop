@@ -115,6 +115,7 @@
       <DependentUpon>DbProvider.dbml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ShoppingCartHelper.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\ShoppingCartItem.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Views\ShoppingCart\Order.cshtml" />
     <Content Include="Views\ShoppingCart\Register.cshtml" />
     <Content Include="Views\ShoppingCart\SuccessfullyRegistered.cshtml" />
+    <Content Include="Views\ShoppingCart\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

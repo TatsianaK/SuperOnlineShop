@@ -99,7 +99,7 @@ namespace SuperOnlineShop.Controllers {
             Member newMember = Member.MakeNew(registerModel.Name, demoMemberType, new umbraco.BusinessLogic.User(0));
 
             newMember.Email = registerModel.Email;
-            newMember.Password = "1";
+            newMember.Password = registerModel.Password;
             newMember.LoginName = registerModel.Name;
 
             newMember.getProperty("address").Value = registerModel.Address; //set value of property with alias ‘address’
@@ -116,6 +116,30 @@ namespace SuperOnlineShop.Controllers {
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel loginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            //var m = Member.GetMemberFromLoginName(loginModel.Login);
+            var m = Member.GetMemberFromLoginNameAndPassword(loginModel.Login, loginModel.Password);
+            if (m == null)
+            {
+                ModelState.AddModelError("login", "Login and password do not match!!!");
+
+                return View();
+            }
+
+            return Content("Logged in!!!");
+        }
 
         private List<ShoppingCartItem> GetShoppingCartItems() {
             var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
