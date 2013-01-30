@@ -71,7 +71,9 @@
             event.preventDefault();
             var url = $(this).attr('href');
             if (confirm("Are you sure to delete?")) {
-                $('#shoppingCartTable').load(url);
+                $('#shoppingCartTable').load(url, function () {
+                    UpdateCartStatus();
+                });
             }
         });
     });

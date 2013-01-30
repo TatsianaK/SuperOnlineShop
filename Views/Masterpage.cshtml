@@ -12,16 +12,31 @@
 	
 <div id="menu-wrapper">
 	
-	<div id="menu" >
+	<div id="menu">
 		@Umbraco.RenderMacro("TopMenu")
 	</div>
+	
 	<!-- end #menu -->
 </div>
 <div id="header-wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1><a href="#">Re<span>creation</span></a></h1>
-			<p>Template design by <a href="http://www.freecsstemplates.org">FCT</a></p>
+			<h1><a href="#">Super <span>Online Shop</span></a></h1>
+			<p>The best shop ever</p>
+		</div>
+		<div id="cart-icon"  class="post">
+			<a href="/shoppingcart">
+			<div style="float:left">
+				<img src = "/content/images/icon-cart.png" width="30px" />
+			</div>
+			<div style="float:right" id="empty-cart">
+				No items in the cart
+			</div>
+			<div style="float:right;display:none" id="full-cart" >
+				Total count: <span id="cart-count"></span> <br/>
+				Total price: $<span id="cart-price"></span> <br/>
+			</div>
+			</a>
 		</div>
 	</div>
 </div>
@@ -79,5 +94,30 @@
 	<p>&copy; Design by Anastasia, Ivan, Tatsiana. Epam Systems, 2013.</p>
 </div>
 <!-- end #footer -->
+		
+<script type="text/javascript">
+	$(document).ready(function () {
+		UpdateCartStatus();	
+	});
+	
+	function UpdateCartStatus(){
+  		$.post("/umbraco/Surface/ShoppingCart/GetCartSummary", null)
+   			.success(function(response){
+				if(response.Count>0){
+					 $("#full-cart").show();
+					 $("#empty-cart").hide();
+					 $("#cart-count").html(response.Count);
+					 $("#cart-price").html(response.TotalPrice);
+				} else {
+				 $("#empty-cart").show();
+				 $("#full-cart").hide();
+				}
+		   	})
+		   	.error(function(){
+				alert("Error during upate");
+   			});
+	}
+</script>		
+		
 </body>
 </html>

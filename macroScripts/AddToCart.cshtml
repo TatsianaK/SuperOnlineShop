@@ -12,6 +12,7 @@
 		//alert("Add to cart!!! (id: " + @Model.Id + ", count: " + $("#count").val() + ")");
 		$.post("/umbraco/Surface/ShoppingCart/AddToCart",{id: @Model.Id, count: $("#count").val()})
 			.success(function(){
+				UpdateCartStatus();
 				if(confirm("Go to Shopping Cart?")){
 					document.location.href = "/ShoppingCart.aspx";
 				}

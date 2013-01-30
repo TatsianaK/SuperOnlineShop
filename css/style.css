@@ -60,8 +60,9 @@ a:hover {
 
 #logo {
 	margin: 0px;
-	padding: 30px 0px;
+	padding: 10px 0px;
 	color: #000000;
+	float: left;
 }
 
 #logo h1, #logo p {
@@ -98,6 +99,27 @@ a:hover {
 	background: none;
 	text-decoration: none;
 	color: #323030;
+}
+
+/* Cart icon */
+
+#cart-icon {
+	margin: 0px;
+	padding: 10px 10px;
+	margin: 10px 0px;
+	color: #000000;
+	float: right;
+	border: 2px solid #F6B300;
+	width: auto;
+	height: auto;
+	border-radius: 8px;
+}
+
+#cart-icon div{
+	vertical-align: top;
+	color: #000;
+	font-weight: bold;
+	padding-left: 4px;
 }
 
 /* Search */
@@ -443,6 +465,20 @@ a:hover {
 {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

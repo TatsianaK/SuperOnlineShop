@@ -55,7 +55,7 @@ namespace SuperOnlineShop.Controllers {
         [HttpPost]
         public ActionResult Order(OrderInfo orderInfo) {
             ViewBag.Message = "Thank you. Your order will be processed";
-// test code
+            // test code
             if (Session["ShoppingCartItems"] != null)
             {
                 UpdateBoughtProductsCount((Dictionary<int, int>)Session["ShoppingCartItems"]);
@@ -63,6 +63,13 @@ namespace SuperOnlineShop.Controllers {
             //UpdateBoughtProductsCount(orderInfo.orderedProducts);
             return View();
         }
+
+        public JsonResult GetCartSummary(){
+            List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
+
+            return Json(new {Count = shoppingCartItems.Count, TotalPrice = shoppingCartItems.Sum(item=> item.Count*item.Price)});
+        }
+
 
         private List<ShoppingCartItem> GetShoppingCartItems() {
             var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
