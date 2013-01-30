@@ -14,6 +14,21 @@
         @Html.ValidationMessageFor(m => m.Email)
     </div>
     <div>
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address)
+        @Html.ValidationMessageFor(m => m.Address)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber)
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.FullName)
+        @Html.TextBoxFor(m => m.FullName)
+        @Html.ValidationMessageFor(m => m.FullName)
+    </div>
+    <div>
         <button type="submit">Register</button>
     </div>
 }

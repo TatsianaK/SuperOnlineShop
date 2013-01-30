@@ -95,19 +95,19 @@ namespace SuperOnlineShop.Controllers {
                 return View();
             }
 
-            MemberType demoMemberType = new MemberType(1108); //id of membertype ‘Customer’
+            MemberType demoMemberType = MemberType.GetByAlias("Customer");
             Member newMember = Member.MakeNew(registerModel.Name, demoMemberType, new umbraco.BusinessLogic.User(0));
 
             newMember.Email = registerModel.Email;
             newMember.Password = "1";
             newMember.LoginName = registerModel.Name;
 
-            //newMember.getProperty(“address”).Value = txtAddress.Text; //set value of property with alias ‘address’
-            //newMember.getProperty(“city”).Value = txtCity.Text; //set value of property with alias ‘city’
+            newMember.getProperty("address").Value = registerModel.Address; //set value of property with alias ‘address’
+            newMember.getProperty("phoneNumber").Value = registerModel.PhoneNumber; //set value of property with alias ‘phoneNumber’
+            newMember.getProperty("fullName").Value = registerModel.FullName; //set value of property with alias ‘fullName’
 
             newMember.Save();
 
-            //return Content("Successfully registered!!!");
             return View("SuccessfullyRegistered");
         }
 
