@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SuperOnlineShop.Helpers;
 using SuperOnlineShop.Models;
 using Umbraco.Web.Mvc;
+using umbraco.cms.businesslogic.member;
 
 namespace SuperOnlineShop.Controllers {
     public class ShoppingCartController : SurfaceController {
@@ -63,6 +64,51 @@ namespace SuperOnlineShop.Controllers {
             //UpdateBoughtProductsCount(orderInfo.orderedProducts);
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel registerModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            if (Member.GetMemberFromEmail(registerModel.Email) != null)
+            {
+                ModelState.AddModelError("email", "There is already a user with such an email!!!");
+                return View();
+            }
+            if (Member.GetMemberByName(registerModel.Name, false).Count() > 0)
+            {
+                ModelState.AddModelError("name", "There is already a user with such a name!!!");
+                return View();
+            }
+
+            MemberType demoMemberType = new MemberType(1108); //id of membertype ‘Customer’
+            Member newMember = Member.MakeNew(registerModel.Name, demoMemberType, new umbraco.BusinessLogic.User(0));
+
+            newMember.Email = registerModel.Email;
+            newMember.Password = "1";
+            newMember.LoginName = registerModel.Name;
+
+            //newMember.getProperty(“address”).Value = txtAddress.Text; //set value of property with alias ‘address’
+            //newMember.getProperty(“city”).Value = txtCity.Text; //set value of property with alias ‘city’
+
+            newMember.Save();
+
+            //return Content("Successfully registered!!!");
+            return View("SuccessfullyRegistered");
+        }
+
+        public ActionResult SuccessfullyRegistered()
+        {
+            return View();
+        }
+
 
         private List<ShoppingCartItem> GetShoppingCartItems() {
             var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];

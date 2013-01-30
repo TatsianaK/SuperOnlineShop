@@ -1,0 +1,19 @@
+﻿@model SuperOnlineShop.Models.RegisterModel
+
+<h1>Register</h1>
+
+@using(Html.BeginForm()){
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div>
+        <button type="submit">Register</button>
+    </div>
+}
