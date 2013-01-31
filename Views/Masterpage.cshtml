@@ -2,122 +2,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
-    <link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+	<title>The Best Store Online - @ViewBag.Title</title>
+	<link href="http://fonts.googleapis.com/css?family=Arvo|Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/constants.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet_boxes.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/stylesheet_content.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/styles.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/css/TextStyles.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/SearchScript.js")" type="text/javascript"></script>
 </head>
 <body>
-	
-<div id="menu-wrapper">
-	
-	<div id="menu">
-		@Umbraco.RenderMacro("TopMenu")
-	</div>
-	
-	<!-- end #menu -->
-</div>
-<div id="header-wrapper">
-	<div id="header">
-		<div id="logo">
-			<h1><a href="#">Super <span>Online Shop</span></a></h1>
-			<p>The best shop ever</p>
-		</div>
-		<div id="cart-icon"  class="post">
-			<a href="/shoppingcart">
-			<div style="float:left">
-				<img src = "/content/images/icon-cart.png" width="30px" />
-			</div>
-			<div style="float:right" id="empty-cart">
-				No items in the cart
-			</div>
-			<div style="float:right;display:none" id="full-cart" >
-				Total count: <span id="cart-count"></span> <br/>
-				Total price: $<span id="cart-price"></span> <br/>
-			</div>
-			</a>
-		</div>
-	</div>
-</div>
-@*<div id="banner"><a href="#" class="img-style"><img src="images/img04.jpg" width="1000" height="350" alt="" /></a></div>*@
-<div id="wrapper">
-	<!-- end #header -->
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-				<div id="content">
-				@RenderBody()
-					
-					<div style="clear: both;">&nbsp;</div>
+	<div class="bg2_body" align="center">
+		<div class="row_1">
+			<div class="width_table">
+				<div class="cl_both">
+					<div class="logo">
+						<a href="/">
+							<img width="218" height="84" border="0" alt="" src="/images/logo.gif">
+						</a>
+					</div>
+					<div align="right" class="fl_right">
+						@Umbraco.RenderMacro("MiniShoppingCart")
+						@Umbraco.RenderMacro("LangCurrenciesSwitcher")
+					</div>
+					<div class="cl_both">
+						@Umbraco.RenderMacro("TopMenu")
+					</div>
 				</div>
-				<!-- end #content -->
-				<div id="sidebar">
-					<ul>
-						<li>
-							<h2>Search Here:</h2>
-							<div id="search" >
-								<form method="get" action="\Search">
-									<div>
-										<input type="text" name="s" id="search-text" value="" />
-										<input type="submit" id="search-submit" value="" />
-									</div>
-								</form>
+			</div>
+		</div>
+		<div align="center" id="content">
+			<div class="row_2">
+				<table class="main_table" cellspacing="0" cellpadding="0" border="0">
+					<tr>
+
+						<td class="box_width_td_left">
+							@******Start: Left content*****@
+							@Umbraco.RenderMacro("BoxHeader", new {HeaderText="Categories"})
+							@Umbraco.RenderMacro("CategoriesList")
+							@Umbraco.RenderMacro("BoxHeader", new {HeaderText="Manufactures"})
+							<div>
+								&nbsp;
 							</div>
-							<div style="clear: both;">&nbsp;</div>
-						</li>
-						<li>
-							<h2>Header</h2>
-							<p>Some text. Mauris vitae nisl nec metus placerat perdiet est. Phasellus dapibus semper consectetuer hendrerit.</p>
-						</li>
-						<li>
-							<h2>Categories</h2>
-							<ul>
-								<li><a href="#">Category1</a></li>
-								<li><a href="#">Category2</a></li>
-								<li><a href="#">Category3</a></li>
-								<li><a href="#">Category4</a></li>
-								<li><a href="#">Category5</a></li>
-								<li><a href="#">Category6</a></li>
-							</ul>
-						</li>
-					</ul>
+							@Umbraco.RenderMacro("Advertisment")
+							@******End: Left content*****@
+						</td>
+						<td class="content_width_td">
+							@RenderBody()
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="row_4">
+				<div class="width_table footer">
+					@Umbraco.RenderMacro("BottomMenu")
+					@Umbraco.RenderMacro("Copyright")
+					
 				</div>
-				<!-- end #sidebar -->
-				<div style="clear: both;">&nbsp;</div>
 			</div>
 		</div>
 	</div>
-	<!-- end #page -->
-</div>
-<div id="footer">
-	<p>&copy; Design by Anastasia, Ivan, Tatsiana. Epam Systems, 2013.</p>
-</div>
-<!-- end #footer -->
-		
-<script type="text/javascript">
-	$(document).ready(function () {
-		UpdateCartStatus();	
-	});
-	
-	function UpdateCartStatus(){
-  		$.post("/umbraco/Surface/ShoppingCart/GetCartSummary", null)
-   			.success(function(response){
-				if(response.Count>0){
-					 $("#full-cart").show();
-					 $("#empty-cart").hide();
-					 $("#cart-count").html(response.Count);
-					 $("#cart-price").html(response.TotalPrice);
-				} else {
-				 $("#empty-cart").show();
-				 $("#full-cart").hide();
-				}
-		   	})
-		   	.error(function(){
-				alert("Error during upate");
-   			});
-	}
-</script>		
-		
 </body>
 </html>
