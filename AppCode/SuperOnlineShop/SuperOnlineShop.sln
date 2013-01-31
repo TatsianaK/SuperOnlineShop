@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperOnlineShop", "SuperOnlineShop.csproj", "{1B6A2F55-62EE-4804-A006-1593A46BF804}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperOnlineShop.Tests", "..\SuperOnlineShop.Tests\SuperOnlineShop.Tests.csproj", "{3AAC3C7B-CD60-4497-A6AB-C277FA56F166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{1B6A2F55-62EE-4804-A006-1593A46BF804}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B6A2F55-62EE-4804-A006-1593A46BF804}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B6A2F55-62EE-4804-A006-1593A46BF804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AAC3C7B-CD60-4497-A6AB-C277FA56F166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AAC3C7B-CD60-4497-A6AB-C277FA56F166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AAC3C7B-CD60-4497-A6AB-C277FA56F166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AAC3C7B-CD60-4497-A6AB-C277FA56F166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
