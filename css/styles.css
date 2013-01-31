@@ -1,0 +1,154 @@
+#slides-box {
+	background:url(../images/js.gif) 0px 0px no-repeat;width:940px;
+	padding:8px 0px 8px 0px;
+}
+.container { 
+	width:925px; 
+	margin:0px 0px;
+	font-size:.875em;
+}
+/*== featured box begin ==*/
+#featured {
+	width:925px;
+	position:relative;
+	height:310px;
+}
+#featured ul.ui-tabs-nav {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	list-style:none;
+	z-index:100;
+	background:url(../images/ui-tabs-nav.jpg) 100% 100% no-repeat;
+	
+	padding:0px 0px 0px 0px;
+	
+	width:249px;
+	height:310px;
+	margin:0px 0px 0px 0px;
+}
+#featured ul.ui-tabs-nav li { 
+	width:249px; 
+	height:62px; 
+	overflow:hidden; 
+	margin-bottom:0px; margin-left:0px; margin-top:0px;
+	vertical-align:top;
+	font-size:0;
+	line-height:0; float:left;
+	background:url(../images/ui-tabs.gif) 0px 0px repeat-x;
+}
+#featured ul.ui-tabs-nav li.ui-tabs-selected,
+#featured ul.ui-tabs-nav li.ui-tabs-selected a.un span,
+#featured ul.ui-tabs-nav li.ui-tabs-selected a.un5 span,
+#featured ul.ui-tabs-nav li.ui-tabs-selected a span 		{ 
+	background:none;
+}
+
+	#featured ul.ui-tabs-nav li a {
+		display:block;
+		width:249px;
+		overflow:hidden;
+		text-decoration:none;
+	}
+.slides-box-table .container			{margin:0px 0px 30px 0px;}	
+/*
+#featured ul.ui-tabs-nav li.ui-tabs-nav-item a,
+#featured ul.ui-tabs-nav li.ui-tabs-selected a {text-decoration:none;}
+#featured ul.ui-tabs-nav li.ui-tabs-nav-item a { color:#707371;}
+#featured ul.ui-tabs-nav li.ui-tabs-selected a { color:#ec008c;}
+*/
+#featured .ui-tabs-hide {display:none; }
+/*== featured box end ==*/
+.ui-tabs-panel img {text-align:right; right:0px;}
+.ui-tabs-panel a {text-align:right; right:0px; display:block;}
+
+.ui-tabs-nav-item a span					{display:block;height:62px;width:249px;padding:0px 0px 0px 0px; cursor:pointer;}
+
+.ui-tabs-nav-item a span strong,
+.ui-tabs-selected a span strong	{
+	display:block;
+	height:41px;
+	width:195px;
+	padding:19px 0px 2px 54px; 
+	text-align:left; font-family:Arial, Arial Narrow, Helvetica, sans-serif;
+}
+
+.ui-tabs-nav-item a span					{background:url(../images/ui-tabs-nav-item.gif) 0px 0px repeat-y;}
+.ui-tabs-nav-item a:hover span				{background:none;}
+.ui-tabs-nav-item a.un span					{background:url(../images/ui-tabs-nav-item1.gif) 0px 0px no-repeat;}
+.ui-tabs-nav-item a.un5 span				{background:url(../images/ui-tabs-nav-item5.gif) 0px 0px no-repeat;}
+
+.ui-tabs-nav-item a span strong				{background:url(../images/js-marker.gif) 19px 19px no-repeat;}
+.ui-tabs-selected a span strong				{background:url(../images/js-marker-act.png) 19px 19px no-repeat;}
+
+
+li a span strong	{
+	color:#2f3638 !important; font-size:19px; line-height:22px; font-weight:normal; text-decoration:none;
+}
+li.ui-tabs-selected a span strong	{
+	color:#fff !important; font-size:19px; line-height:22px; font-weight:normal; text-decoration:none;
+}
+
+/*==========================================*/
+/*--- carousel begin ---*/
+.carousel-box {
+	height:142px;
+	overflow:hidden;
+	width:940px;
+	position:relative;
+	margin:0;
+	padding-bottom:0px;
+}
+
+
+.carousel-box .inner {
+	padding:0;
+	position:relative;
+}
+.carousel-box button {
+	background:none;
+	width:19px;
+	height:21px;
+	border:none;
+	position:absolute;
+	cursor:pointer;
+	outline:none;
+	z-index:10;
+}
+.carousel-box button.prev {
+	background:url(../images/prev.gif) no-repeat left top;
+	top:31px;
+	left:0px !important;
+}
+.carousel-box button.prev:hover{background:url(../images/prev-act.gif) no-repeat left top;}
+
+.carousel-box button.next {
+	right:0px;
+	top:31px;
+	background:url(../images/next.gif) no-repeat left top;
+}
+.carousel-box button.next:hover{background:url(../images/next-act.gif) no-repeat left top;}
+
+.carousel-box ul{ overflow:hidden;}
+.carousel-box ul li {
+	padding:0 0px 0 0;
+	margin:0;
+	float:left;
+	position:relative;
+	list-style: none;
+}
+.carousel-box ul li .div{
+	width:211px;
+	height:142px;
+	position:relative;
+	float:left;
+	color:#716f6f;
+	text-decoration:none;
+	margin-left:5px;
+}
+.carousel-box ul li a span{ position:absolute; bottom:17px; left:20px; z-index:10; line-height:20px; color:#716f6f;}
+.carousel-box ul li a strong{ font-weight:normal; text-decoration:underline; display:block;}
+.carousel-box ul li a:hover strong{ text-decoration:none;}
+
+
+/*--- carousel end ---*/

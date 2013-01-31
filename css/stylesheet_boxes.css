@@ -1,0 +1,225 @@
+/* ************************************************************************************* */
+.infoBoxHeading_table				{margin:0px 0px 0px 0px; background:#333333;}
+.infoBoxHeading_td					{width:100%; padding:7px 0px 8px 18px; vertical-align:top;text-align:left;}
+.popup .infoBoxHeading_td			{width:100%; padding:7px 0px 8px 18px; vertical-align:top;}
+
+.infoBoxHeading_table				{background:url(../images/infoBoxHeading_t.gif) 0px 0px repeat-x #f3f3f3;}
+.infoBoxHeading_b					{background:url(../images/infoBoxHeading_b.gif) 0px 100% repeat-x;}
+.infoBoxHeading_l					{background:url(../images/infoBoxHeading_border.gif) 0px 0px repeat-y;}
+.infoBoxHeading_r					{background:url(../images/infoBoxHeading_border.gif) 100% 0px repeat-y;}
+
+.infoBoxHeading_tl					{background:url(../images/infoBoxHeading_tl.gif) 0pc 0px no-repeat;}
+.infoBoxHeading_tr					{background:url(../images/infoBoxHeading_tr.gif) 100% 0px no-repeat;}
+.infoBoxHeading_bl					{background:url(../images/infoBoxHeading_bl.gif) 0px 100% no-repeat;}
+.infoBoxHeading_br					{background:url(../images/infoBoxHeading_br.gif) 100% 100% no-repeat;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.popup .infoBoxHeading_td 		{color:#111017;font-size:16px;line-height:17px;font-weight:normal;}
+.infoBoxHeading_td 				{color:#111017;font-size:16px;line-height:17px;font-weight:normal;}
+.infoBoxHeading_td a 			{color111017#111017;font-size:16px;line-height:17px;font-weight:normal;text-decoration:none}
+.infoBoxHeading_td a:hover 		{color:#fff; text-decoration:underline;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.infoBox_table					{margin:0px 0px 0px 0px;}
+.popup .infoBox_table			{ background:none}
+.infoBox_td 					{padding:0px 0px 20px 0px;width:100%;}
+/* ************************************************************************************* */
+.infoBoxContents_table			{margin:0px;}
+.infoBoxContents_table .boxText	{width:100%;padding:18px 19px 15px 19px; height:16px;}
+.popup .infoBoxContents_table .boxText	{width:100%;padding:1px 19px 15px 19px; height:56px;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.infoBoxContents2_table .boxText	{width:100%;padding:9px 0px 0px 0px; height:56px;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.infoBox3_table					{margin:23px 2px 0px 0px; width:178px;}
+.infoBox3_td 					{padding:0px 0px 0px 15px;width:100%;}
+/* ************************************************************************************* */
+.infoBoxContents3_table			{margin:0px;}
+.infoBoxContents3_table .boxText{width:100%;padding:0px 0px 0px 0px;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.infoBox4_table					{margin:0px 0px 0px 0px;}
+.infoBox4_td 					{padding:0px 0px 20px 0px;width:100%;}
+/* ************************************************************************************* */
+.infoBoxContents4_table			{margin:0px; background:#fff;}
+.infoBoxContents4_table .boxText{width:100%;padding:0px 0px 10px 0px;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.infoBoxHeadingTitle_table				{margin:5px 0px 6px 0px;}
+.infoBoxHeadingTitle_td					{width:100%; padding:7px 0px 6px 24px; vertical-align:top;}
+.popup .infoBoxHeadingTitle_td			{width:100%; padding:7px 0px 6px 24px; vertical-align:top;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.popup .infoBoxHeadingTitle_td 		{color:#2f3638;font-size:24px;line-height:26px;font-weight:normal;}
+.infoBoxHeadingTitle_td 				{color:#0bb1e8;font-size:24px;line-height:26px;font-weight:normal;}
+.infoBoxHeadingTitle_td a 				{color:#0bb1e8;font-size:24px;line-height:26px;font-weight:normal;text-decoration:none}
+.infoBoxHeadingTitle_td a:hover 		{color:#0bb1e8; text-decoration:underline;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.box_cart					{margin-top:15px;margin-bottom:11px;}
+.box_cart td				{padding:4px 0px 4px 0px;}
+.boxText font  				{color:#2b4605; text-decoration:none; font-size:11px; font-weight:normal;}
+.boxText font a 			{color:#2b4605; text-decoration:none; font-size:11px; font-weight:normal;}
+.boxText font a:hover  		{color:#2b4605;}
+
+.boxText font.sc a 			{color:#2b4605; text-decoration:none; font-size:12px; font-weight:bold;}
+.boxText font.sc a:hover  	{color:#2b4605; text-decoration:underline}
+
+.boxText strong a 				{color:#2b4605; text-decoration:none; font-size:12px; line-height:14px; font-weight:bold;}
+.boxText strong a:hover  		{color:#2b4605; text-decoration:none}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.boxText SPAN.newItemInCart 				{color: #ff0000;font-size:12px; line-height:14px;padding:4px 0px 4px 0px;}
+.boxText a .newItemInCart					{color: #ff0000;font-size:12px; line-height:14px;}
+.boxText a:hover .newItemInCart 			{color: #ff0000; text-decoration:underline;}
+.boxText SPAN.oldItemInCart					{color: #393939;font-size:12px; line-height:14px;padding:4px 0px 4px 0px; display:block;}
+.boxText a .oldItemInCart					{color: #393939;font-size:12px; line-height:14px;}
+.boxText a:hover .oldItemInCart 			{color: #999a9b; text-decoration:underline;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.boxText,
+.boxText td, .boxText div					{color:#999a9b; font-size:12px; line-height:16px;  }
+.boxText a, .boxText a b	{color:#999a9b; font-size:11px; line-height:12px;  text-decoration:none;}
+.boxText a b				{color:#999a9b; }
+.boxText a:hover			{text-decoration:none;}
+.boxText .order_history 			{width:100%;padding:3px 5px 3px 0px;}
+.boxText .order_history a			{color:#393939; font-size:12px; line-height:18px; font-weight:normal; text-decoration:none;}
+.boxText .order_history a:hover		{color:#999a9b; text-decoration:none;}
+
+
+.boxText span a					{color:#111017; font-size:13px; line-height:16px; font-weight:normal; text-decoration:none;}
+.boxText span a:hover			{color:#111017; text-decoration:underline;}
+
+.boxText span.productSpecialPrice 	{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold; display:inline;}
+.boxText b.productSpecialPrice 		{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold; display:inline;}
+del						 			{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold;}
+
+.boxText div.img 				{margin:10px 0px 10px 0px; text-align:center;}
+.boxText div.stars 				{margin:14px 0px 10px 0px;}
+
+.boxText .name_padd				{padding:2px 10px 0px 10px;height:16px; vertical-align:top;}
+.boxText .pic_padd				{padding:0px 0px 10px 0px;text-align:center; vertical-align:middle;}
+.boxText .price_padd			{padding:10px 14px 0px 10px;vertical-align:middle; height:10px; width:100%;}
+.boxText .price_padd b			{color:#000000; font-size:11px; line-height:12px; font-weight:normal; padding-bottom:2px; padding-top:2px; display:none}
+.boxText .desc_padd				{padding:4px 11px 6px 11px;height:24px;}		
+.boxText select					{margin:2px 0px 5px 0px;border:1px solid #b4b4b4;background:#fff; color:#b4b4b4;height:19px; width:100%;}	
+.boxText .input					{margin:6px 0px 4px 0px;border:1px solid #b4b4b4;background:#fff; color:#b4b4b4;height:19px; width:100%;}
+.boxText .button_search			{width:15%;}
+.boxText .button_search input	{margin:2px 0px 0px 0px;}
+.boxText .text_search			{text-align:left; width:85%;}
+.boxText .star_padd				{padding:4px 14px 15px 14px;}
+.boxText .languages				{padding:0px 0px 0px 0px;}
+.boxText .languages .flag_sep	{margin:3px 5px 0px 5px;}
+.boxText .button				{padding:0px 13px 9px 14px; height:6px; text-align:center; vertical-align:middle;}
+.boxText .button td				{color:#000000}
+.button td						{vertical-align:middle;padding-top:7px;}
+.boxText .padd 					{padding:0px 0px 5px 0px;}
+/* ************************************************************************************* */
+.boxText .search_input-rep			{background:url(../images/search3-rep.gif) 0px 0px repeat-x; width:100%;}
+.boxText .search_input-left			{background:url(../images/search3-left.gif) 0px 0px no-repeat;}
+.boxText .search_input-right		{background:url(../images/search3-right.gif) 100% 0px no-repeat;width:100%;vertical-align:middle; height:21px;}
+
+.boxText .search_button-rep			{background:url(../images/search4-rep.gif) 0px 0px repeat-x;}
+.boxText .search_button-left		{background:url(../images/search4-left.gif) 0px 0px no-repeat;}
+.boxText .search_button-right		{background:url(../images/search4-left.gif) 100% 0px no-repeat;vertical-align:middle; height:21px;padding:0px 0px 0px 0px;}
+/* ************************************************************************************* */
+.boxText .go			{width:100%; color:#9a9a9a; font-size:11px; line-height:18px;
+						 padding-left:9px; padding-right:5px; height:18px;vertical-align:middle;margin:0px 0px 0px 0px;border:0px solid #cccccc;background:transparent;}
+
+.boxText .advserch				{padding:12px 0px 0px 0px;}
+.boxText .advserch a			{text-transform:lowercase; text-decoration:underline;}
+.boxText .advserch a:hover		{text-decoration:none;}
+
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.boxText li							{padding:0px 0px 0px 0px; width:100%;}
+.boxText li, .boxText li a, .boxText li a font
+									{ vertical-align:top; font-size:14px; line-height:15px; font-weight:normal;}
+.boxText li a b
+									{font-size:14px; line-height:15px; font-weight:normal;}									
+.boxText ul							{list-style:none;padding:0;}
+.boxText .categories				{margin:10px 0px 0px 0px;}
+.boxText .bestsellers				{margin:0px 0px 0px 0px;}
+.boxText .information				{margin:0px 0px 0px 0px;}
+.boxText .manufacturers ul			{margin:0px 0px 0px 0px;}
+.boxText li a 						{display:block;}
+.boxText ul li div 					{padding-left:13px;}
+
+
+
+.boxText .bg_list 					{padding:0px 0px 0px 0px;margin:1px 0px 0px; background:url(../images/list_hline.gif) 0px 0px repeat-x;}
+.boxText .bg_list a					{color:#111017;
+									 padding:8px 0px 6px 31px;text-decoration:none;background:url(../images/list_marker.gif) 19px 14px no-repeat;}
+.boxText .bg_list a:hover			{color:#0bb1e8; text-decoration:none;}
+.boxText .bg_list a b				{color:#0bb1e8; font-weight:normal;text-decoration:none;margin:-8px 0px -6px -31px; padding:8px 0px 6px 31px; display:block;}
+.boxText .bg_list a:hover b			{color:#111017;text-decoration:none;margin:-8px 0px -6px -31px; padding:8px 0px 6px 31px; display:block;}
+	
+.boxText .bg_list_un 				{padding:0px 0px 0px 0px;}
+.boxText .bg_list_un a				{color:#111017;
+									 padding:8px 0px 6px 31px;text-decoration:none;background:url(../images/list_marker.gif) 19px 14px no-repeat;}
+.boxText .bg_list_un a:hover		{color:#0bb1e8; text-decoration:none;}
+.boxText .bg_list_un a b			{color:#0bb1e8; font-weight:normal;text-decoration:none;margin:-8px 0px -6px -31px; padding:8px 0px 6px 31px; display:block;}
+.boxText .bg_list_un a:hover b		{color:#111017;text-decoration:none;margin:-8px 0px -6px -31px; padding:8px 0px 6px 31px; display:block;}
+
+.boxText .categories {text-aligh:left}
+.boxText .bg_list a.selected_menu_item,
+.boxText .bg_list_un a.selected_menu_item				{color:#0bb1e8; font-weight:normal;text-decoration:none; display:block;}
+.boxText .categories li a:hover			{color:#0bb1e8;text-decoration:underline; display:block;}
+
+
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.boxText .bg_list2 					{padding:0px 0px 0px 0px;}
+.boxText .bg_list2 a 				{padding:8px 0px 6px 19px;}
+.boxText .bg_list2 a:hover 			{text-decoration:none;}
+
+.boxText .bg_list2_un 				{padding:0px 0px 0px 0px;}
+.boxText .bg_list2_un a				{padding:8px 0px 6px 19px;}
+.boxText .bg_list2_un a:hover 		{text-decoration:none;}
+/* ************************************************************************************* */
+.boxText .bg_list2 					{padding:0px 0px 0px 0px;margin:1px 0px 0px; background:url(../images/list_hline.gif) 0px 0px repeat-x;}
+.boxText .bg_list2 a font			{color:#111017; }
+.boxText .bg_list2 a:hover font		{color:#0bb1e8;text-decoration:none;}
+
+.boxText .bg_list2_un 				{padding:0px 0px 0px 0px;margin:1px 0px 0px 0px;}
+.boxText .bg_list2_un a	font		{color:#111017;}
+.boxText .bg_list2_un a:hover font	{color:#0bb1e8;text-decoration:none;}
+/* ************************************************************************************* */
+.boxText .bg_list2 a b				{color:#0bb1e8; font-weight:normal;}
+.boxText .bg_list2 a:hover b		{color:#111017;text-decoration:none;}
+
+.boxText .bg_list2_un  				{}
+.boxText .bg_list2_un a	b			{color:#0bb1e8; font-weight:normal;}
+.boxText .bg_list2_un a:hover b		{color:#111017;text-decoration:none;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+/* ************************************************************************************* */
+.boxText .bg_list3 					{padding:0px 0px 0px 0px;margin:1px 0px 0px; background:url(../images/list_hline.gif) 0px 0px repeat-x;}
+.boxText .bg_list3 a				{color:#111017;
+						 			 padding:8px 0px 6px 31px;text-decoration:none;background:url(../images/list_marker.gif) 19px 14px no-repeat;}
+.boxText .bg_list3 a:hover			{color:#0bb1e8;text-decoration:none;}
+
+.boxText .bg_list3_un 				{padding:0px 0px 0px 0px;}
+.boxText .bg_list3_un a				{color:#111017;
+						 			 padding:8px 0px 6px 31px;text-decoration:none;background:url(../images/list_marker.gif) 19px 14px no-repeat;}
+.boxText .bg_list3_un a:hover		{color:#0bb1e8;text-decoration:none;}
+/* ************************************************************************************* */
+/* ************************************************************************************* */
