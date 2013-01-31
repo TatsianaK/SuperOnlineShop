@@ -1,4 +1,4 @@
-@*
+﻿@*
 LIST SUBPAGES BY LIMIT AND DATETIME
 ===================================
 This snippet shows how easy it is to combine different queries. It lists the children of the currentpage which is
@@ -10,13 +10,43 @@ How it works:
   
 NOTE: It is safe to remove this comment (anything between @ * * @), the code that generates the list is only the below!
 *@
-
 @inherits umbraco.MacroEngines.DynamicNodeContext
 
-@{ var numberOfItems = 10; }
-<ul>
-    @foreach (var item in @Model.Children.Where("Visible").OrderBy("UpdateDate").Take(numberOfItems))
+@{ 
+	var numberOfItems = 10; 
+	var sortBy = HttpContext.Current.Request["sortBy"];
+	var direction = HttpContext.Current.Request["direction"];
+	
+	var orderBy = "UpdateDate";
+	switch(sortBy){
+		case "price": orderBy = "Price"; break;
+		case "name": orderBy = "Name"; break;
+	}
+	
+	var items = @Model.Children.Where("Visible").OrderBy(orderBy).Take(numberOfItems);
+	if(direction == "desc"){
+		items.Reverse();
+	}
+ }
+
+@*<ul>*@
+    @foreach (var item in @items)
     {
-        <li><a href="@item.Url">@item.Name</a></li>
+		<div class="post">
+        	<table>
+				<tr>
+					<td colspan="2"><h3><a href="@item.Url">@item.Name ($@item.Price)</a></h3></td>
+				</tr>
+				<tr>
+					<td><img src = @item.Image style="widht:10px; height:200px;"/></td>
+					<td style="padding-left:20px; vertical-align:top">@item.Description</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<h1>Price $@item.Price</h1> <a href="@item.Url" style="float:right"><h4>Read more</h4></a>
+					</td>
+				</tr>	
+			</table>
+		</div>
     }
-</ul>
+@*</ul>*@

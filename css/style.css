@@ -1,10 +1,3 @@
-
-/*
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-*/
-
 body {
 	margin: 0;
 	padding: 0;
@@ -67,8 +60,9 @@ a:hover {
 
 #logo {
 	margin: 0px;
-	padding: 30px 0px;
+	padding: 10px 0px;
 	color: #000000;
+	float: left;
 }
 
 #logo h1, #logo p {
@@ -105,6 +99,27 @@ a:hover {
 	background: none;
 	text-decoration: none;
 	color: #323030;
+}
+
+/* Cart icon */
+
+#cart-icon {
+	margin: 0px;
+	padding: 10px 10px;
+	margin: 10px 0px;
+	color: #000000;
+	float: right;
+	border: 2px solid #F6B300;
+	width: auto;
+	height: auto;
+	border-radius: 8px;
+}
+
+#cart-icon div{
+	vertical-align: top;
+	color: #000;
+	font-weight: bold;
+	padding-left: 4px;
 }
 
 /* Search */
@@ -225,6 +240,18 @@ a:hover {
 	background: #F1EDE4;
 }
 
+.post-header {
+	margin-bottom: 15px;
+	padding: 10px 10px;
+	border: 1px solid #E7DFD7;
+	border-radius: 8px;
+	background: #F1EDE4;
+}
+
+.post-header h1{
+	color: #3D2729;
+}
+
 .post-bgtop {
 }
 
@@ -278,7 +305,7 @@ a:hover {
 
 .button
 {
-	padding: 10px 25px;
+	padding: 5px 10px;
 	background: #3E282A;
 	border-radius: 5px;
 	text-transform: uppercase;
@@ -408,3 +435,54 @@ a:hover {
 {
 	border-radius: 8px;
 }
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

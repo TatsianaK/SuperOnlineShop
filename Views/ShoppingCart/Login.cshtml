@@ -1,0 +1,19 @@
+﻿@model SuperOnlineShop.Models.LoginModel
+
+<h1>Login</h1>
+
+@using(Html.BeginForm()){
+    <div>
+        @Html.LabelFor(m => m.Login)
+        @Html.TextBoxFor(m => m.Login)
+        @Html.ValidationMessageFor(m => m.Login)
+    </div>
+     <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+}

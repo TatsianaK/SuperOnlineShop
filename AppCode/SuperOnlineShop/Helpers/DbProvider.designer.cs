@@ -33,6 +33,9 @@ namespace SuperOnlineShop.Helpers
     partial void InsertcmsContentXml(cmsContentXml instance);
     partial void UpdatecmsContentXml(cmsContentXml instance);
     partial void DeletecmsContentXml(cmsContentXml instance);
+    partial void InsertBoughtProduct(BoughtProduct instance);
+    partial void UpdateBoughtProduct(BoughtProduct instance);
+    partial void DeleteBoughtProduct(BoughtProduct instance);
     #endregion
 		
 		public DbProviderDataContext() : 
@@ -70,6 +73,14 @@ namespace SuperOnlineShop.Helpers
 			get
 			{
 				return this.GetTable<cmsContentXml>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BoughtProduct> BoughtProducts
+		{
+			get
+			{
+				return this.GetTable<BoughtProduct>();
 			}
 		}
 	}
@@ -135,6 +146,92 @@ namespace SuperOnlineShop.Helpers
 					this._xml = value;
 					this.SendPropertyChanged("xml");
 					this.OnxmlChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BoughtProducts")]
+	public partial class BoughtProduct : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _NodeId;
+		
+		private int _Count;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNodeIdChanging(int value);
+    partial void OnNodeIdChanged();
+    partial void OnCountChanging(int value);
+    partial void OnCountChanged();
+    #endregion
+		
+		public BoughtProduct()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NodeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int NodeId
+		{
+			get
+			{
+				return this._NodeId;
+			}
+			set
+			{
+				if ((this._NodeId != value))
+				{
+					this.OnNodeIdChanging(value);
+					this.SendPropertyChanging();
+					this._NodeId = value;
+					this.SendPropertyChanged("NodeId");
+					this.OnNodeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int NOT NULL")]
+		public int Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this.OnCountChanging(value);
+					this.SendPropertyChanging();
+					this._Count = value;
+					this.SendPropertyChanged("Count");
+					this.OnCountChanged();
 				}
 			}
 		}

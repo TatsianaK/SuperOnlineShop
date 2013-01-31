@@ -4,7 +4,7 @@
 
 <div>
 	<input type="text" name="count" id="count" maxlength="2" size="2" value="@defaultCount" />
-	<a href="javascript:AddToCart();return false;">Add to cart</a>
+	<a href="javascript:AddToCart();return false;" class="button">Add to cart</a>
 </div>
 	
 <script type="text/javascript">
@@ -12,6 +12,7 @@
 		//alert("Add to cart!!! (id: " + @Model.Id + ", count: " + $("#count").val() + ")");
 		$.post("/umbraco/Surface/ShoppingCart/AddToCart",{id: @Model.Id, count: $("#count").val()})
 			.success(function(){
+				UpdateCartStatus();
 				if(confirm("Go to Shopping Cart?")){
 					document.location.href = "/ShoppingCart.aspx";
 				}

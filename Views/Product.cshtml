@@ -5,11 +5,15 @@
 
 <div class="post">
 	<h1>@Umbraco.Field("producer") @Umbraco.Field("model")</h1>
+	<br/>
+	<div style="float:left;padding-right:10px">
+		<img src=@Umbraco.Field("image") width="150px"/>
+	</div>
 	<div>
 		@Umbraco.Field("description")
 	</div>
 	<div>
-		$@Umbraco.Field("price")
+		<h4>$@Umbraco.Field("price")</h4>
 	</div>
 	<div>
 		@Umbraco.RenderMacro("AddToCart")

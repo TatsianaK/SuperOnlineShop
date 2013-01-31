@@ -1,9 +1,17 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+	
 @{
     Layout = "Masterpage.cshtml";
 }
 
-<div class="post">
+<div class="post-header">
 	<h1>@Umbraco.Field("title")</h1>
-	@Umbraco.RenderMacro("ChildProducts")
 </div>
+	@Umbraco.RenderMacro("ChildProducts")
+	<div>
+	@Umbraco.RenderMacro("SortingLinks", new {links="price, name"})
+	</div>
+
+	
+
+	

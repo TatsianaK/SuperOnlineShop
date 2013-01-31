@@ -6,16 +6,14 @@
 	
 	@{
 		var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
-		var productContentTypeId = sqlHelper.ExecuteScalar<int>("select [nodeId] from cmsContentType where alias='Product'");
+			
 		var contentNodeIds = 
-			sqlHelper.ExecuteReader("SELECT TOP " + countToDisplay.ToString()
-									+ " nodeId, text FROM cmsContent INNER JOIN umbracoNode u on u.id = nodeId WHERE contentType=" 
-				+ productContentTypeId.ToString() + "AND trashed = 0  ORDER BY nodeId DESC");
-	
+			sqlHelper.ExecuteReader("SELECT TOP " + countToDisplay.ToString() + " * FROM umbracoNode INNER JOIN BoughtProducts ON umbracoNode.id = BoughtProducts.NodeId"
+									+ " WHERE umbracoNode.id = BoughtProducts.NodeId ORDER BY BoughtProducts.Count DESC");
 		
 		while(contentNodeIds.Read()){
 			<div>
-				<a href="@umbraco.library.NiceUrl(@contentNodeIds.GetInt("nodeId"))">@contentNodeIds.GetString("text")</a>
+				<a href="@umbraco.library.NiceUrl(@contentNodeIds.GetInt("NodeId"))">@contentNodeIds.GetString("text")</a>
 			</div>
 		}
 	}
