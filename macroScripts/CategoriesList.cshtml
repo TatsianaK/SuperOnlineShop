@@ -1,0 +1,33 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@{
+	var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
+	var categoryContentTypeId = sqlHelper.ExecuteScalar<int>("select [nodeId] from cmsContentType where alias='Category'");
+	var contentNodeIds = 
+		sqlHelper.ExecuteReader("SELECT nodeId, text FROM cmsContent LEFT JOIN umbracoNode u on u.id = nodeId WHERE contentType=" 
+			+ categoryContentTypeId.ToString() + "ORDER BY text ASC");
+	
+
+<div class="infoBox_td boxText">
+	<ul class="categories">
+	@{
+		string selectedClass = "selected_menu_item";
+		string ordinaryClass = "menu_item'";
+		string className = "bg_list_un";
+		string currentCategoryClassName;
+		int nodeId;
+	}
+	@while(contentNodeIds.Read()){
+		nodeId = @contentNodeIds.GetInt("nodeId");
+		currentCategoryClassName = Array.IndexOf(Model.Path.Split(','), nodeId.ToString()) >= 0 ? @selectedClass : @ordinaryClass;
+
+		<li class="@className">
+			<a style="text-align:left;" class="@currentCategoryClassName" href="@umbraco.library.NiceUrl(nodeId)">@contentNodeIds.GetString("text")</a>
+		</li>
+
+		className = "bg_list";
+	}
+
+	</ul>
+</div>
+
+}
