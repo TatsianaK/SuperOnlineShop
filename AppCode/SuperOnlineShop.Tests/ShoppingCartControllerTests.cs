@@ -24,45 +24,11 @@ namespace SuperOnlineShop.Tests
             var currentProperty = typeof(UmbracoContext).GetProperty("Current", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
             currentProperty.SetValue(null, umbracoContext);
 
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new FakeShoppingCart());
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.Index();
 
             Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "Index action returns not a ViewResult");
-        }
-    }
-
-    public class FakeShoppingCart : IShoppingCart
-    {
-        private Dictionary<int, int> cart = new System.Collections.Generic.Dictionary<int, int>();
-
-        public Dictionary<int, int> GetItems(ControllerContext context)
-        {
-            return cart;
-            //throw new NotImplementedException();
-        }
-
-        public void DeleteItem(ControllerContext context, int id)
-        {
-            cart.Remove(id);
-            //throw new NotImplementedException();
-        }
-
-        public void UpdateCartItems(ControllerContext context, System.Collections.Generic.Dictionary<int, int> items)
-        {
-            cart = items;
-            //throw new NotImplementedException();
-        }
-
-        public void AddItemsToCart(ControllerContext context, int id, int count)
-        {
-            if (!cart.ContainsKey(id))
-            {
-                cart[id] = 0;
-            }
-
-            cart[id] = cart[id] + count;
-            //throw new NotImplementedException();
         }
     }
 
