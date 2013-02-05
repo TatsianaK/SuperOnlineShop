@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuperOnlineShop.Controllers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Umbraco.Web;
 using Umbraco.Web.Routing;
 using System.Runtime.Serialization;
@@ -34,8 +35,7 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void LoginActionShouldReturnDefaultView()
-        {
+        public void LoginActionShouldReturnDefaultView() {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.Login();
@@ -44,8 +44,7 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void RegisterActionShouldReturnDefaultView()
-        {
+        public void RegisterActionShouldReturnDefaultView() {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.Register();
@@ -54,12 +53,10 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void RegisterPostActionShouldReturnSuccessfullyRegisteredView()
-        {
+        public void RegisterPostActionShouldReturnSuccessfullyRegisteredView() {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
-            var registerModel = new RegisterModel
-            {
+            var registerModel = new RegisterModel {
                 Name = "user01",
                 Email = "user01@domain.com",
                 Password = "pass01"
@@ -71,8 +68,7 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void SuccessfullyRegisteredActionShouldReturnDefaultView()
-        {
+        public void SuccessfullyRegisteredActionShouldReturnDefaultView() {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.SuccessfullyRegistered();
@@ -81,8 +77,7 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void GetCartSummaryActionShouldReturnJsonResult()
-        {
+        public void GetCartSummaryActionShouldReturnJsonResult() {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.GetCartSummary();
@@ -91,7 +86,36 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void RecountPriceTest() {
+        public void IndexItemsNumber() {
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+
+            var actionResult = controller.Index() as ViewResult;
+            var model = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult);
+            
+            Assert.AreEqual(model.Count(), 2, "Number of items is not correct");
+        }
+
+        [TestMethod]
+        public void IndexDisplayCorrectItem() {
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+
+            var actionResult = controller.Index() as ViewResult;
+            var model = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult);
+            
+            Assert.AreEqual(model.First().Id, 1078, "Id is not correct");
+            Assert.AreEqual(model.Last().Id, 1079, "Id is not correct");
+        }    
+            
+
+
+        [TestMethod]
+        public void RecountPriceForOneItem() {
             var shoppingCart = new ShoppingCartTest();
             shoppingCart.AddItemsToCart(null, 1078, 1);
             shoppingCart.AddItemsToCart(null, 1079, 2);
@@ -105,9 +129,55 @@ namespace SuperOnlineShop.Tests {
             actionResult = (ViewResult)controller.Index(model);
             var recountedSum = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult).Sum(item => item.Price * item.Count);
 
-            Assert.AreEqual(recountedSum, 514, "Recount is incorrect");
+            Assert.AreEqual(recountedSum, 600, "Recount is incorrect");
         }
 
+        [TestMethod]
+        public void RecountPriceForTwoItems() {
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+
+            var actionResult = (ViewResult)controller.Index();
+            IEnumerable<ShoppingCartItem> model = new List<ShoppingCartItem>(new ShoppingCartItem[]{
+                new ShoppingCartItem{Id=1078, Count =2},
+                new ShoppingCartItem{Id=1079, Count =3}
+            });
+
+            actionResult = (ViewResult)controller.Index(model);
+            var recountedSum = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult).Sum(item => item.Price * item.Count);
+
+            Assert.AreEqual(recountedSum, 800, "Recount is incorrect");
+        }
+
+        [TestMethod]
+        public void DeleteActionRedirectToIndex() {
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+
+            var redirectResult = controller.Delete(1078) as RedirectToRouteResult;
+
+            Assert.IsNotNull(redirectResult, "Redirect result is null");
+            Assert.AreEqual(redirectResult.RouteValues["action"], "Index", "Delete action should be redirected to Index");
+        }
+
+        [TestMethod]
+        public void SuccessffullyDeleteItem() {
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+
+            var redirectResult = controller.Delete(1078) as RedirectToRouteResult;
+            var actionResult = controller.Index();
+
+            var model = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult);
+            Assert.AreEqual(model.Count(), 1, "Delete action should delete one item");
+        }
 
         public T ModelFromActionResult<T>(ActionResult actionResult) {
             object model;
