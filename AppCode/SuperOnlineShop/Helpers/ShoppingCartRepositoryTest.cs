@@ -8,9 +8,9 @@ namespace SuperOnlineShop.Helpers {
     public class ShoppingCartRepositoryTest : IShoppingCartRepository{
 
         private List<ShoppingCartItem> items = new List<ShoppingCartItem>(new  ShoppingCartItem[]{
-            new ShoppingCartItem{Id=1078, Name="ItemTest1", Price=123},
-            new ShoppingCartItem{Id=1079, Name="ItemTest2", Price=134},
-            new ShoppingCartItem{Id=1080, Name="ItemTest3", Price=345}
+            new ShoppingCartItem{Id=1078, Name="ItemTest1", Price=100},
+            new ShoppingCartItem{Id=1079, Name="ItemTest2", Price=200},
+            new ShoppingCartItem{Id=1080, Name="ItemTest3", Price=300}
         });
 
         public List<ShoppingCartItem> GetItems(Dictionary<int, int> itemCountPerId) {
