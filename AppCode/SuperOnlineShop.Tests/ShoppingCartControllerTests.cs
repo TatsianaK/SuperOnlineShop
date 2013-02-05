@@ -14,6 +14,8 @@ using System.Linq;
 namespace SuperOnlineShop.Tests {
     [TestClass]
     public class ShoppingCartControllerTests {
+        IShoppingCart defaultShoppingCart = new ShoppingCartTest();
+
         [TestInitialize]
         public void SetUp() {
             var umbracoContext = FormatterServices.GetUninitializedObject(typeof(UmbracoContext)) as UmbracoContext;
@@ -22,11 +24,15 @@ namespace SuperOnlineShop.Tests {
             routingContextProperty.SetValue(umbracoContext, routingContext);
             var currentProperty = typeof(UmbracoContext).GetProperty("Current", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
             currentProperty.SetValue(null, umbracoContext);
+
+            defaultShoppingCart = new ShoppingCartTest();
+            defaultShoppingCart.AddItemsToCart(null, 1078, 1);
+            defaultShoppingCart.AddItemsToCart(null, 1079, 2);
         }
 
         [TestMethod]
         public void IndexActionShouldReturnDefaultView() {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var actionResult = controller.Index();
 
@@ -36,7 +42,7 @@ namespace SuperOnlineShop.Tests {
         [TestMethod]
         public void LoginActionShouldReturnDefaultView()
         {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var actionResult = controller.Login();
 
@@ -46,7 +52,7 @@ namespace SuperOnlineShop.Tests {
         [TestMethod]
         public void RegisterActionShouldReturnDefaultView()
         {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var actionResult = controller.Register();
 
@@ -56,7 +62,7 @@ namespace SuperOnlineShop.Tests {
         [TestMethod]
         public void RegisterPostActionShouldReturnSuccessfullyRegisteredView()
         {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var registerModel = new RegisterModel
             {
@@ -73,7 +79,7 @@ namespace SuperOnlineShop.Tests {
         [TestMethod]
         public void SuccessfullyRegisteredActionShouldReturnDefaultView()
         {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var actionResult = controller.SuccessfullyRegistered();
 
@@ -83,7 +89,7 @@ namespace SuperOnlineShop.Tests {
         [TestMethod]
         public void GetCartSummaryActionShouldReturnJsonResult()
         {
-            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
 
             var actionResult = controller.GetCartSummary();
 
@@ -91,11 +97,27 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
+        public void GetCartSummaryActionShouldReturnRightCountAndTotalPrice()
+        {
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), defaultShoppingCart);
+
+            var actionResult = controller.GetCartSummary();
+
+            var result = (actionResult as JsonResult).Data;
+
+            var countPropertyInfo = result.GetType().GetProperty("Count");
+            var countValue = (int)countPropertyInfo.GetValue(result);
+
+            var totalPricePropertyInfo = result.GetType().GetProperty("TotalPrice");
+            var totalPriceValue = (int)totalPricePropertyInfo.GetValue(result);
+
+            Assert.AreEqual(2, countValue, "Count is not equal to 2");
+            Assert.AreEqual(500, totalPriceValue, "TotalPrice is not equal to 500");
+        }
+
+        [TestMethod]
         public void RecountPriceTest() {
-            var shoppingCart = new ShoppingCartTest();
-            shoppingCart.AddItemsToCart(null, 1078, 1);
-            shoppingCart.AddItemsToCart(null, 1079, 2);
-            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), defaultShoppingCart);
 
             var actionResult = (ViewResult)controller.Index();
             IEnumerable<ShoppingCartItem> model = new List<ShoppingCartItem>(new ShoppingCartItem[]{
@@ -122,12 +144,6 @@ namespace SuperOnlineShop.Tests {
             }
             T typedModel = (T)model;
             return typedModel;
-        }
-    }
-
-    public class FakeShoppingCartRepository : IShoppingCartRepository {
-        public System.Collections.Generic.List<Models.ShoppingCartItem> GetItems(System.Collections.Generic.Dictionary<int, int> itemCountPerId) {
-            return new List<Models.ShoppingCartItem>();
         }
     }
 }
