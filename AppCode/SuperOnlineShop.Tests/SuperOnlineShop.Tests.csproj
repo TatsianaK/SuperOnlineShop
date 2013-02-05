@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SuperOnlineShop\Libs\umbraco.dll</HintPath>
     </Reference>
+    <Reference Include="umbraco.DataLayer">
+      <HintPath>..\SuperOnlineShop\Libs\umbraco.DataLayer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">

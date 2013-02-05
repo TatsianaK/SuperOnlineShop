@@ -7,14 +7,14 @@ using System.Web.Mvc;
 namespace SuperOnlineShop.Helpers {
     public class ShoppingCartTest : IShoppingCart {
 
-        private static Dictionary<int, int> shoppingCartItems;
+        private Dictionary<int, int> shoppingCartItems = new Dictionary<int,int>();
 
         public ShoppingCartTest(){
-            if(shoppingCartItems==null){
-                shoppingCartItems = new Dictionary<int,int>();
-                shoppingCartItems.Add(1078,1);
-                shoppingCartItems.Add(1079,2);
-            }
+            //if(shoppingCartItems==null){
+            //    shoppingCartItems = new Dictionary<int,int>();
+            //    shoppingCartItems.Add(1078,1);
+            //    shoppingCartItems.Add(1079,2);
+            //}
         }
 
         public Dictionary<int, int> GetItems(ControllerContext controllerContext){

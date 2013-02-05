@@ -54,19 +54,48 @@ namespace SuperOnlineShop.Tests {
         }
 
         [TestMethod]
-        public void SuccessfullyRegisteredActionShouldReturnSuccessfullyRegisteredView()
+        public void RegisterPostActionShouldReturnSuccessfullyRegisteredView()
+        {
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+
+            var registerModel = new RegisterModel
+            {
+                Name = "user01",
+                Email = "user01@domain.com",
+                Password = "pass01"
+            };
+
+            var actionResult = controller.Register(registerModel);
+
+            Assert.AreEqual("SuccessfullyRegistered", (actionResult as ViewResult).ViewName, "Registered post action should return SuccessfullyRegistered view");
+        }
+
+        [TestMethod]
+        public void SuccessfullyRegisteredActionShouldReturnDefaultView()
         {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.SuccessfullyRegistered();
 
             Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "SuccessfullyRegistered action returns not a ViewResult");
-            Assert.AreEqual("SuccessfullyRegistered", (actionResult as ViewResult).ViewName, "SuccessfullyRegistered action does not return SuccessfullyRegistered view");
+        }
+
+        [TestMethod]
+        public void GetCartSummaryActionShouldReturnJsonResult()
+        {
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+
+            var actionResult = controller.GetCartSummary();
+
+            Assert.IsInstanceOfType(actionResult, typeof(JsonResult), "GetCartSummary action returns not a JsonResult");
         }
 
         [TestMethod]
         public void RecountPriceTest() {
-            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), new ShoppingCartTest());
+            var shoppingCart = new ShoppingCartTest();
+            shoppingCart.AddItemsToCart(null, 1078, 1);
+            shoppingCart.AddItemsToCart(null, 1079, 2);
+            var controller = new ShoppingCartController(new ShoppingCartRepositoryTest(), shoppingCart);
 
             var actionResult = (ViewResult)controller.Index();
             IEnumerable<ShoppingCartItem> model = new List<ShoppingCartItem>(new ShoppingCartItem[]{
