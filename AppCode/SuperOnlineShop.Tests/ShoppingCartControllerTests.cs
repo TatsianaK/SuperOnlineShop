@@ -34,6 +34,37 @@ namespace SuperOnlineShop.Tests
 
             Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "Index action returns not a ViewResult");
         }
+
+        [TestMethod]
+        public void LoginActionShouldReturnDefaultView()
+        {
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+
+            var actionResult = controller.Login();
+
+            Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "Login action returns not a ViewResult");
+        }
+
+        [TestMethod]
+        public void RegisterActionShouldReturnDefaultView()
+        {
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+
+            var actionResult = controller.Register();
+
+            Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "Register action returns not a ViewResult");
+        }
+
+        [TestMethod]
+        public void SuccessfullyRegisteredActionShouldReturnSuccessfullyRegisteredView()
+        {
+            var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
+
+            var actionResult = controller.SuccessfullyRegistered();
+
+            Assert.IsInstanceOfType(actionResult, typeof(ViewResult), "SuccessfullyRegistered action returns not a ViewResult");
+            Assert.AreEqual("SuccessfullyRegistered", (actionResult as ViewResult).ViewName, "SuccessfullyRegistered action does not return SuccessfullyRegistered view");
+        }
     }
 
     public class FakeShoppingCartRepository : IShoppingCartRepository
