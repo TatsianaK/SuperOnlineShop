@@ -137,6 +137,7 @@
     <Compile Include="Helpers\ShoppingCartRepository.cs" />
     <Compile Include="Helpers\ShoppingCartRepositoryTest.cs" />
     <Compile Include="Helpers\ShoppingCartTest.cs" />
+    <Compile Include="Helpers\UnityControllerFactory.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\RegisterModel.cs" />
