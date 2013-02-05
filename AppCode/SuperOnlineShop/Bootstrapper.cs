@@ -11,6 +11,9 @@ namespace SuperOnlineShop
         {
             var container = BuildUnityContainer();
 
+            ControllerBuilder.Current.SetControllerFactory(
+                    new UnityControllerFactory(container));
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
 
