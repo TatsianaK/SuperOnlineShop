@@ -14,8 +14,8 @@ namespace SuperOnlineShop.Tests
     [TestClass]
     public class ShoppingCartControllerTests
     {
-        [TestMethod]
-        public void ShouldIndexActionReturnDefaultView()
+        [TestInitialize]
+        public void SetUp()
         {
             var umbracoContext = FormatterServices.GetUninitializedObject(typeof(UmbracoContext)) as UmbracoContext;
             var routingContextProperty = typeof(UmbracoContext).GetProperty("RoutingContext", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -23,7 +23,11 @@ namespace SuperOnlineShop.Tests
             routingContextProperty.SetValue(umbracoContext, routingContext);
             var currentProperty = typeof(UmbracoContext).GetProperty("Current", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
             currentProperty.SetValue(null, umbracoContext);
+        }
 
+        [TestMethod]
+        public void IndexActionShouldReturnDefaultView()
+        {
             var controller = new ShoppingCartController(new FakeShoppingCartRepository(), new ShoppingCartTest());
 
             var actionResult = controller.Index();
@@ -36,7 +40,6 @@ namespace SuperOnlineShop.Tests
     {
         public System.Collections.Generic.List<Models.ShoppingCartItem> GetItems(System.Collections.Generic.Dictionary<int, int> itemCountPerId)
         {
-            //throw new NotImplementedException();
             return new List<Models.ShoppingCartItem>();
         }
     }
