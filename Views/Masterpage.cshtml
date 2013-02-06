@@ -63,5 +63,26 @@
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			UpdateCartStatus();	
+		});
+	
+	function UpdateCartStatus(){
+  		$.post("/umbraco/Surface/ShoppingCart/GetCartSummary", null)
+   			.success(function(response){
+				if(response.Count>0){
+					 $("#cart-count").html(response.Count);
+				} else {
+				 $("#cart-count").html(0);
+				}
+		   	})
+		   	.error(function(){
+				alert("Error during upate");
+   			});
+	}
+</script>
+					
 </body>
 </html>

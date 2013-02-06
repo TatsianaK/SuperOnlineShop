@@ -63,6 +63,7 @@
             var url = $(this).attr('action');
             $.post(url, $(this).serialize(), function (response) {
                 $('#shoppingCartTable').html(response);
+                UpdateCartStatus();
             });
             return false;
         });

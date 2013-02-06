@@ -63,6 +63,7 @@
             var url = $(this).attr('action');
             $.post(url, $(this).serialize(), function (response) {
                 $('#shoppingCartTable').html(response);
+                UpdateCartStatus();
             });
             return false;
         });
@@ -71,7 +72,9 @@
             event.preventDefault();
             var url = $(this).attr('href');
             if (confirm("Are you sure to delete?")) {
-                $('#shoppingCartTable').load(url);
+                $('#shoppingCartTable').load(url, function () {
+                    UpdateCartStatus();
+                });
             }
         });
     });

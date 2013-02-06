@@ -86,7 +86,7 @@ namespace SuperOnlineShop.Controllers {
         public JsonResult GetCartSummary(){
             List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
 
-            return Json(new {Count = shoppingCartItems.Count, TotalPrice = shoppingCartItems.Sum(item=> item.Count*item.Price)});
+            return Json(new {Count = shoppingCartItems.Sum(item=> item.Count), TotalPrice = shoppingCartItems.Sum(item=> item.Count*item.Price)});
         }
 
 
