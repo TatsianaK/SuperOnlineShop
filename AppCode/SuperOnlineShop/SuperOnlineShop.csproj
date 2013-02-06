@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +139,7 @@
     <Compile Include="Helpers\ShoppingCartRepositoryTest.cs" />
     <Compile Include="Helpers\ShoppingCartTest.cs" />
     <Compile Include="Helpers\UnityControllerFactory.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -242,6 +244,7 @@
     <Content Include="Views\ShoppingCart\Register.cshtml" />
     <Content Include="Views\ShoppingCart\SuccessfullyRegistered.cshtml" />
     <Content Include="Views\ShoppingCart\Login.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
