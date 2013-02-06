@@ -9,11 +9,25 @@ using SuperOnlineShop.Helpers;
 using SuperOnlineShop.Models;
 using Umbraco.Web.Mvc;
 using umbraco.cms.businesslogic.member;
+using Umbraco.Web;
+using System.Web.Routing;
 
 namespace SuperOnlineShop.Controllers {
     public class ShoppingCartController : SurfaceController {
         //
         // GET: /ShoppnigCart/
+        private IShoppingCartRepository repository;
+        private IShoppingCart cart;
+
+        public ShoppingCartController(){
+            repository = new ShoppingCartRepository();
+            cart = new ShoppingCart();
+        }
+        
+        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository, IShoppingCart shoppingCart){
+            repository = shoppingCartRepository;
+            cart = shoppingCart;
+        }
 
         public ActionResult Index() {
             List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
@@ -27,22 +41,22 @@ namespace SuperOnlineShop.Controllers {
         /// <returns></returns>
         [HttpPost]
         public ActionResult Index(IEnumerable<ShoppingCartItem> model) {
-            var updatedItems = model.Select(item => new { item.Id, item.Count }).ToDictionary(item => item.Id, item => item.Count);
-            UpdateCartItems(updatedItems);
+            Dictionary<int,int> updatedItems = model.Select(item => new { item.Id, item.Count }).ToDictionary(item => item.Id, item => item.Count);
+            cart.UpdateCartItems(this.ControllerContext, updatedItems);
 
-            List<ShoppingCartItem> shoppingCartItems = GetShoppingCartItems();
+            List<ShoppingCartItem> shoppingCartItems =  GetShoppingCartItems();
             return View(shoppingCartItems);
         }
 
         public ActionResult Delete(int id) {
-            DeleteItemFromSession(id);
+            cart.DeleteItem(this.ControllerContext, id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult AddToCart(int id, int count) {
             try {
-                AddItemsToSession(id, count);
+                cart.AddItemsToCart(this.ControllerContext, id,count);
                 return Json(new { status = "ok" });
             } catch (Exception ex) {
                 return Json(new { error = ex.Message });
@@ -58,6 +72,7 @@ namespace SuperOnlineShop.Controllers {
             ViewBag.Message = "Thank you. Your order will be processed. We will contact you within 10 minutes";
             // test code
             var OrderedProducts = (Dictionary<int, int>)Session["ShoppingCartItems"];
+            
             if (Session["ShoppingCartItems"] != null)
             {
                 UpdateBoughtProductsCount(OrderedProducts);
@@ -147,53 +162,51 @@ namespace SuperOnlineShop.Controllers {
         }
 
         private List<ShoppingCartItem> GetShoppingCartItems() {
-            var connectionString = ConfigurationManager.AppSettings["umbracoDbDSN"];
 
-            Dictionary<int, int> sessionShoppingCartItems = GetItemsFromSession();
-
-            List<ShoppingCartItem> shoppingCartItems = ShoppingCartHelper.GetItems(connectionString, sessionShoppingCartItems);
+            Dictionary<int, int> cartItems = cart.GetItems(this.ControllerContext);
+            List<ShoppingCartItem> shoppingCartItems = repository.GetItems(cartItems);
             return shoppingCartItems;
         }
 
-        private void AddItemsToSession(int id, int count) {
-            Dictionary<int, int> shoppingCartItems = new Dictionary<int, int>();
+        //private void AddItemsToSession(int id, int count) {
+        //    Dictionary<int, int> shoppingCartItems = new Dictionary<int, int>();
 
-            if (Session["ShoppingCartItems"] != null) {
-                shoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
-            }
+        //    if (Session["ShoppingCartItems"] != null) {
+        //        shoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
+        //    }
 
-            if (shoppingCartItems.Any(item => item.Key == id)) {
-                shoppingCartItems[id] += count;
-            } else {
-                shoppingCartItems[id] = count;
-            }
+        //    if (shoppingCartItems.Any(item => item.Key == id)) {
+        //        shoppingCartItems[id] += count;
+        //    } else {
+        //        shoppingCartItems[id] = count;
+        //    }
 
-            Session["ShoppingCartItems"] = shoppingCartItems;
-        }
+        //    Session["ShoppingCartItems"] = shoppingCartItems;
+        //}
 
-        private void UpdateCartItems(Dictionary<int, int> items) {
-            Dictionary<int, int> cartItems = GetItemsFromSession();
-            foreach (var item in items) {
-                cartItems[item.Key] = item.Value;
-            }
-        }
+        //private void UpdateCartItems(Dictionary<int, int> items) {
+        //    Dictionary<int, int> cartItems = GetItemsFromSession();
+        //    foreach (var item in items) {
+        //        cartItems[item.Key] = item.Value;
+        //    }
+        //}
 
-        private Dictionary<int, int> GetItemsFromSession() {
-            Dictionary<int, int> sessionShoppingCartItems = new Dictionary<int, int>();
-            if (Session["ShoppingCartItems"] != null) {
-                sessionShoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
-            }
-            return sessionShoppingCartItems;
-        }
+        //private Dictionary<int, int> GetItemsFromSession() {
+        //    Dictionary<int, int> sessionShoppingCartItems = new Dictionary<int, int>();
+        //    if (Session["ShoppingCartItems"] != null) {
+        //        sessionShoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
+        //    }
+        //    return sessionShoppingCartItems;
+        //}
 
-        private void DeleteItemFromSession(int id) {
-            if (Session["ShoppingCartItems"] != null) {
-                Dictionary<int, int> shoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
-                if (shoppingCartItems.Any(item => item.Key == id)) {
-                    shoppingCartItems.Remove(id);
-                }
-            }
-        }
+        //private void DeleteItemFromSession(int id) {
+        //    if (Session["ShoppingCartItems"] != null) {
+        //        Dictionary<int, int> shoppingCartItems = (Dictionary<int, int>)Session["ShoppingCartItems"];
+        //        if (shoppingCartItems.Any(item => item.Key == id)) {
+        //            shoppingCartItems.Remove(id);
+        //        }
+        //    }
+        //}
 
         private void UpdateBoughtProductsCount(Dictionary<int, int> orderedProducts) {
             using (DbProviderDataContext dbContext = new DbProviderDataContext(ConfigurationManager.AppSettings["umbracoDbDSN"])) {
