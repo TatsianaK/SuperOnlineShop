@@ -9,7 +9,7 @@ namespace SuperOnlineShop.Helpers {
     public class ShoppingCart : IShoppingCart {
 
         //private ControllerContext controllerContext;
-        private const string CartSessionKey = "ShoppingCartItems";
+        public const string CartSessionKey = "ShoppingCartItems";
 
         //public ShoppingCart(ControllerContext context){
         //    controllerContext = context;

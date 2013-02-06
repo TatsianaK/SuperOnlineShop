@@ -130,12 +130,10 @@ namespace SuperOnlineShop.Tests {
             var actionResult = controller.Index() as ViewResult;
             var model = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult);
             
-            Assert.AreEqual(model.First().Id, 1078, "Id is not correct");
-            Assert.AreEqual(model.Last().Id, 1079, "Id is not correct");
+            Assert.AreEqual(1078, model.First().Id, "Id is not correct");
+            Assert.AreEqual(1079, model.Last().Id, "Id is not correct");
         }    
             
-
-
         [TestMethod]
         public void RecountPriceForOneItem() {
             var shoppingCart = new ShoppingCartTest();
@@ -151,7 +149,7 @@ namespace SuperOnlineShop.Tests {
             actionResult = (ViewResult)controller.Index(model);
             var recountedSum = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult).Sum(item => item.Price * item.Count);
 
-            Assert.AreEqual(recountedSum, 600, "Recount is incorrect");
+            Assert.AreEqual(600, recountedSum, "Recount is incorrect");
         }
 
         [TestMethod]
@@ -170,7 +168,7 @@ namespace SuperOnlineShop.Tests {
             actionResult = (ViewResult)controller.Index(model);
             var recountedSum = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult).Sum(item => item.Price * item.Count);
 
-            Assert.AreEqual(recountedSum, 800, "Recount is incorrect");
+            Assert.AreEqual(800, recountedSum, "Recount is incorrect");
         }
 
         [TestMethod]
@@ -183,7 +181,7 @@ namespace SuperOnlineShop.Tests {
             var redirectResult = controller.Delete(1078) as RedirectToRouteResult;
 
             Assert.IsNotNull(redirectResult, "Redirect result is null");
-            Assert.AreEqual(redirectResult.RouteValues["action"], "Index", "Delete action should be redirected to Index");
+            Assert.AreEqual("Index", redirectResult.RouteValues["action"], "Delete action should be redirected to Index");
         }
 
         [TestMethod]
@@ -198,7 +196,7 @@ namespace SuperOnlineShop.Tests {
             var actionResult = controller.Index();
 
             var model = ModelFromActionResult<IEnumerable<ShoppingCartItem>>(actionResult);
-            Assert.AreEqual(model.Count(), 1, "Delete action should delete one item");
+            Assert.AreEqual(1, model.Count(), "Delete action should delete one item");
         }
 
         public T ModelFromActionResult<T>(ActionResult actionResult) {
