@@ -15,19 +15,85 @@ namespace SuperOnlineShop.Tests {
     [TestClass]
     public class ShoppingCartTests {
 
-        [TestMethod]
-        public void MyTest() {
-            ShoppingCart cart = new ShoppingCart();
+        IShoppingCart defaultShoppingCart = new ShoppingCartTest();
+        ControllerContext controllerContext; 
+        Mock<ControllerContext> context;
 
-            var context = new Mock<ControllerContext>();
+        [TestInitialize]
+        public void SetUp() {
+            context = new Mock<ControllerContext>();
             var mockSession = new Mock<HttpSessionStateBase>();
             context.Setup(p => p.HttpContext.Session).Returns(mockSession.Object);
+            context.Setup(p => p.HttpContext.Session[ShoppingCart.CartSessionKey]).Returns(new Dictionary<int, int>());
+            controllerContext = context.Object;
+        }
 
-            //context.Object.HttpContext.Session["test"]=123;
+        [TestMethod]
+        public void AddItemsToCart() {
+            ShoppingCart cart = new ShoppingCart();
 
-            cart.AddItemsToCart(context.Object, 1078, 1);
-            Dictionary<int, int> items = cart.GetItems(context.Object);
+            cart.AddItemsToCart(controllerContext, 1078, 1);
+            Dictionary<int, int> items = (Dictionary<int, int>)controllerContext.HttpContext.Session[ShoppingCart.CartSessionKey];
+            
             Assert.AreEqual(1,items.Count(), "Count is incorrect");
+        }
+
+        [TestMethod]
+        public void GetItemsFromCart() {
+            ShoppingCart cart = new ShoppingCart();
+
+            Dictionary<int, int> cartItems = new Dictionary<int,int>();
+            cartItems.Add(1078,1);
+            cartItems.Add(1079,2);
+
+            context.Setup(p => p.HttpContext.Session[ShoppingCart.CartSessionKey]).Returns(cartItems);
+            
+            Dictionary<int, int> items = cart.GetItems(controllerContext);
+            Assert.AreEqual(2,items.Count(), "Count is incorrect");
+        }
+
+        [TestMethod]
+        public void UpdateItemsInCart() {
+            ShoppingCart cart = new ShoppingCart();
+
+            Dictionary<int, int> cartItems = new Dictionary<int,int>();
+            cartItems.Add(1078,1);
+            cartItems.Add(1079,2);
+
+            context.Setup(p => p.HttpContext.Session[ShoppingCart.CartSessionKey]).Returns(cartItems);
+
+            Dictionary<int, int> updatedCartItems = new Dictionary<int,int>();
+            updatedCartItems.Add(1078,2);
+            updatedCartItems.Add(1079,3);
+            
+            cart.UpdateCartItems(controllerContext, updatedCartItems);
+
+            Dictionary<int, int> items = (Dictionary<int, int>)controllerContext.HttpContext.Session[ShoppingCart.CartSessionKey];
+            
+            Assert.AreEqual(2,items.Count(), "Count is incorrect");
+            Assert.AreEqual(2,items[1078], "Item's count is not updated");
+            Assert.AreEqual(3,items[1079], "Item's count is not updated");
+        }
+
+        [TestMethod]
+        public void DeleteItemsFromCart() {
+            ShoppingCart cart = new ShoppingCart();
+
+            Dictionary<int, int> cartItems = new Dictionary<int,int>();
+            cartItems.Add(1078,1);
+            cartItems.Add(1079,2);
+
+            context.Setup(p => p.HttpContext.Session[ShoppingCart.CartSessionKey]).Returns(cartItems);
+
+            
+            cart.DeleteItem(controllerContext, 1078);
+
+            Dictionary<int, int> items = (Dictionary<int, int>)controllerContext.HttpContext.Session[ShoppingCart.CartSessionKey];
+            
+            Assert.AreEqual(1,items.Count(), "Count is incorrect");
+            Assert.AreEqual(1079,items.First().Key, "Delete is incorrect");
+            Assert.AreEqual(2,items[1079], "Item's count is not updated");
+
         }
 
     }
