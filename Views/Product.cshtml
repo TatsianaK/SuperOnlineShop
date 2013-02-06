@@ -1,21 +1,22 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Masterpage.cshtml";
+	ViewBag.Title = Model.Content.Name;
 }
 
 <div class="post">
-	<h1>@Umbraco.Field("producer") @Umbraco.Field("model")</h1>
-	<br/>
-	<div style="float:left;padding-right:10px">
-		<img src=@Umbraco.Field("image") width="150px"/>
-	</div>
-	<div>
+	<h1>@Model.Content.Name</h1>
+	<div class="content_wrapper2_td description">
+		<div class="prod_info">
+			<img src="@Umbraco.Field("image")" border="0" alt="@Model.Content.Name"/>
+		</div>
+		<div class="al_left line"><strong>Brand:</strong> @Umbraco.Field("producer")</div>
 		@Umbraco.Field("description")
-	</div>
-	<div>
-		<h4>$@Umbraco.Field("price")</h4>
-	</div>
-	<div>
-		@Umbraco.RenderMacro("AddToCart")
+		<div>
+			<h4>$@Umbraco.Field("price")</h4>
+		</div>
+		<div>
+			@Umbraco.RenderMacro("AddToCart")
+		</div>
 	</div>
 </div>
