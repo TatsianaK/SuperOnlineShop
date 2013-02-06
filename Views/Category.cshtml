@@ -1,16 +1,21 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 	
 @{
-    Layout = "Masterpage.cshtml";
+	Layout = "Masterpage.cshtml";
+	ViewBag.Title = @Umbraco.Field("title");
+
+	var query = string.Format(
+		"SELECT id as NodeId FROM umbracoNode " +
+		"where parentId = {0} " +
+		"ORDER BY text ASC",
+	Model.Content.Id);
 }
 
-<div class="post-header">
+<div class="post">
 	<h1>@Umbraco.Field("title")</h1>
-</div>
-	@Umbraco.RenderMacro("ChildProducts")
-	<div>
+	@Umbraco.RenderMacro("ProductsList", new {Query = @query, ProductsCount=9})
 	@Umbraco.RenderMacro("SortingLinks", new {links="price, name"})
-	</div>
+</div>
 
 	
 
