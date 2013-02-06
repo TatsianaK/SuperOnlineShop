@@ -1,46 +1,12 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Masterpage.cshtml";
+	ViewBag.Title = "Search Results";
+	var query = "select cmsContent.nodeId from cmsContentType left join cmsContent on cmsContentType.nodeId = cmsContent.contentType where cmsContentType.alias='Product'";
+	var textToSearch = @HttpContext.Current.Request["s"] ?? string.Empty;
 }
-
-@{	
-	var textToSearch = @HttpContext.Current.Request["s"]??"_ _ _ _ _";
-	
-	var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
-	var productContentTypeId = sqlHelper.ExecuteScalar<int>("select [nodeId] from cmsContentType where alias='Product'");
-	
-	var contentNodeIds = sqlHelper.ExecuteReader("select cmsContent.nodeId, xml from cmsContent inner join cmsContentXml u on u.nodeId = cmsContent.nodeId where contentType=" 
-				+ productContentTypeId.ToString() + " order by cmsContent.nodeId DESC");
-	
-	var dict = new Dictionary<int, Dictionary<string, string>>();
-	while(contentNodeIds.Read()){
-		var xmlDocument = new System.Xml.XmlDocument();
-		xmlDocument.LoadXml(@contentNodeIds.GetString("xml"));
-		var fullDescription = xmlDocument.SelectSingleNode("/Product/producer").InnerText 
-			+ " " + xmlDocument.SelectSingleNode("/Product/model").InnerText + " " +  xmlDocument.SelectSingleNode("/Product/description").InnerText;
-		if(fullDescription.ToLower().IndexOf(textToSearch.ToLower()) >= 0){
-			var innerDict = new Dictionary<string, string>();
-			dict[@contentNodeIds.GetInt("nodeId")] = innerDict;
-			innerDict["FullDescription"] = xmlDocument.SelectSingleNode("/Product/producer").InnerText 
-				+ " " + xmlDocument.SelectSingleNode("/Product/model").InnerText + " " +  xmlDocument.SelectSingleNode("/Product/description").InnerText;
-			innerDict["NodeName"] = xmlDocument.SelectSingleNode("/Product/@nodeName").InnerText;
-		}
-	}
-}
-
 
 <div class="post">
-	<h1>Search results</h1>
-	
-	<br />
-	@if(dict.Keys.Count > 0){
-		foreach(var entry in dict){
-			@: <div>
-				@: <a href="@umbraco.library.NiceUrl(@entry.Key)">@entry.Value["NodeName"]</a>
-			@: </div>
-		}
-	}
-	else{
-			@: No products found!!!
-	}
+	<h1>Search Results</h1>
+	@Umbraco.RenderMacro("ProductsList", new {Query = @query, ItemsPerPage=6, SearchFilter = textToSearch})
 </div>

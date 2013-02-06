@@ -3,10 +3,14 @@
 @inherits umbraco.MacroEngines.DynamicNodeContext
 @{
 	
-	var productsCount = int.Parse(Parameter.ProductsCount);
-	var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
+	var itemsPerPage = int.Parse(Parameter.ItemsPerPage ?? "6");
 	var query = @Parameter.Query;
-			
+	var searchFilter = Parameter.SearchFilter ?? string.Empty;
+	
+	int columnsCount = 3;
+	string columnWidth = "33%";
+	
+	var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
 	umbraco.DataLayer.SqlHelpers.SqlServer.SqlServerDataReader queryResult = sqlHelper.ExecuteReader(query);
 
 	if (queryResult.HasRecords){
@@ -14,11 +18,12 @@
 		var productsList = new List<Tuple<int,string,string,int,string,string>>();
 		Tuple<int,string,string,int,string,string> product;
 		int nodeId, price;
-		string brand, model, title, pathToImage;
+		string brand, model, title, pathToImage, description;
 		string queryResultForProduct;
+		bool isApplicable;
 		XmlDocument productInfoAsXml = new XmlDocument();
 		int length = 0;
-		while (queryResult.Read() && length < productsCount){
+		while (queryResult.Read() && length < itemsPerPage)	{
 			nodeId = queryResult.GetInt("NodeId");
 			queryResultForProduct = sqlHelper.ExecuteScalar<string>("select xml from cmsContentXml where nodeId = " + nodeId);
 			if (!string.IsNullOrEmpty(queryResultForProduct)){
@@ -30,23 +35,31 @@
 				model = productInfoAsXml.DocumentElement.SelectSingleNode("model/text()").Value ?? string.Empty;
 				price = int.Parse(productInfoAsXml.DocumentElement.SelectSingleNode("price/text()").Value ?? "0");
 				pathToImage = productInfoAsXml.DocumentElement.SelectSingleNode("image/text()").Value ?? string.Empty;
+				description = productInfoAsXml.DocumentElement.SelectSingleNode("description/text()").Value ?? string.Empty;
 				
-				product = new Tuple<int,string,string,int,string,string>(
-					nodeId,					//Item1 - ProductId
-					title,					//Item2 - Product Name
-					brand,					//Item3 - Product Producer
-					price,					//Item4 - Product Price
-					pathToImage,			//Item5 - Product Image
-					model					//Item6 - ProductModel
-				);
+				isApplicable = true;
+				if (!string.IsNullOrEmpty(searchFilter)){
+					isApplicable = 
+						title.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) > -1 ||
+						description.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) > -1 ||
+						model.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) > -1 ||
+						brand.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) > -1;
+				}
 				
-				productsList.Add(product);
-				length++;
+				if (isApplicable){
+					product = new Tuple<int,string,string,int,string,string>(
+						nodeId,					//Item1 - ProductId
+						title,					//Item2 - Product Name
+						brand,					//Item3 - Product Producer
+						price,					//Item4 - Product Price
+						pathToImage,			//Item5 - Product Image
+						model					//Item6 - ProductModel
+					);
+					productsList.Add(product);
+					length++;
+				}
 			}
 		}
-		
-		int columnsCount = 3;
-		string columnWidth = "33%";
 		
 		@Html.Raw("<table class=\"main tableBox_output_table\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">");
 	
