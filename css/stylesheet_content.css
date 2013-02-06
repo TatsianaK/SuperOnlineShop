@@ -168,8 +168,8 @@ td.main, p.main, div.main, .main td, .main p, .main b, .main .desc2 strong
 .main a						{color:#111017; font-size:13px; line-height:16px; font-weight:bold;  text-decoration:none;}
 .main a:hover				{color:#111017; text-decoration:underline;}
   
-.main .name a				{color:#111017; font-size:13px; line-height:16px; font-weight:normal; text-decoration:none;}
-.main .name a:hover			{color:#111017; text-decoration:underline;}
+.main .name a				{color:#0bb1e8; font-size:13px; line-height:16px; font-weight:normal; text-decoration:underline;}
+.main .name a:hover			{color:#0bb1e8; text-decoration:underline;}
 
 .main .name b a				{font-weight:bold;}
 
@@ -179,14 +179,14 @@ td.main, p.main, div.main, .main td, .main p, .main b, .main .desc2 strong
 .main .desc2 a:hover		{color:#111017; font-size:11px; text-decoration:none;}
 .main b b 					{color:#111017;	font-size:11px;line-height:12px;font-weight:bold;}
 
-SPAN.productSpecialPrice 			{color:#fff;font-size:13px;line-height:14px;font-weight:normal;}
-s									{color:#fff;font-size:13px;line-height:14px;font-weight:normal;}
+SPAN.productSpecialPrice 			{color:#fff;font-size:15px;line-height:15px;font-weight:normal;}
+s									{color:#fff;font-size:15px;line-height:15px;font-weight:normal;}
 
-.main SPAN.productSpecialPrice 		{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold;}
-.main s								{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold;}
+.main SPAN.productSpecialPrice 		{color:#0bb1e8;font-size:15px; line-height:15px; font-weight:bold;}
+.main s								{color:#0bb1e8;font-size:15px; line-height:15px; font-weight:bold;}
 
-.main b.productSpecialPrice 		{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold}
-.main .price2_padd b				{color:#0bb1e8;font-size:13px; line-height:15px; font-weight:bold; display:none}
+.main b.productSpecialPrice 		{color:#0bb1e8;font-size:15px; line-height:15px; font-weight:bold}
+.main .price2_padd b				{color:#0bb1e8;font-size:15px; line-height:15px; font-weight:bold; display:none}
 
 
 .main .strong							{color:#0bb1e8; font-size:14px; line-height:22px; font-weight:bold;  display:block;}
@@ -202,6 +202,7 @@ table.listing td			{padding:1px 0px 1px 0px;background:url(../images/spacer.gif)
 							 color:#111017; font-size:11px; }
 
 .main .listing b 					{font-weight:normal;}
+.main .listing .bold 					{font-weight:bold;}
 .main .listing em,
 .main .listing font   				{color:#111017; font-size:11px;  font-weight:normal;padding:0px 0px 0px 4px;}
 .main .listing b font   			{color:#111017; font-size:11px;  padding:0px 4px 0px 0px;}
@@ -258,24 +259,24 @@ table.listing td			{padding:1px 0px 1px 0px;background:url(../images/spacer.gif)
 .button2__padd td							{vertical-align:middle; font-size:10px;}
 /*  *********  */
 /*  *********  */											
-.main #bg_button2							{text-align:left; vertical-align:middle; width:auto;}
-.main #bg_button2 a							{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
+.main .bg_button2							{text-align:left; vertical-align:middle; width:auto;}
+.main .bg_button2 a							{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
 											 color:#0bb1e8; font-size:11px; line-height:12px; font-weight:normal; text-decoration:underline;}											
-.main #bg_button2-act a						{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
+.main .bg_button2-act a						{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
 											 color:#0bb1e8;font-size:11px; line-height:12px; font-weight:normal;text-decoration:none;}											
-.main #bg_button2-act 						{text-align:left; vertical-align:middle; width:auto;}
-.main  #bg_button2	a						{}
-.main  #bg_button2-act a					{}
+.main .bg_button2-act 						{text-align:left; vertical-align:middle; width:auto;}
+.main  .bg_button2	a						{}
+.main  .bg_button2-act a					{}
 /*  *********  */
 /*  *********  */											
-.main #bg_button22							{text-align:left; vertical-align:middle; width:auto;}
-.main #bg_button22 a						{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
+.main .bg_button22							{text-align:left; vertical-align:middle; width:auto;}
+.main .bg_button22 a						{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
 											 color:#0bb1e8; font-size:11px; line-height:12px; font-weight:normal; text-decoration:underline;}											
-.main #bg_button22-act a					{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
+.main .bg_button22-act a					{padding:8px 16px 8px 16px;text-align:left;display:inline-block;
 											 color:#0bb1e8;font-size:11px; line-height:12px; font-weight:normal;text-decoration:none;}											
-.main #bg_button22-act 						{text-align:left; vertical-align:middle; width:auto;}
-.main  #bg_button22	a						{}
-.main  #bg_button22-act a					{}
+.main .bg_button22-act 						{text-align:left; vertical-align:middle; width:auto;}
+.main  .bg_button22	a						{}
+.main  .bg_button22-act a					{}
 /*  *********  */
 /*  *********  */
 .main .name3_padd							{width:100%; height:35px;padding:8px 15px 3px 15px; text-align:center;}
