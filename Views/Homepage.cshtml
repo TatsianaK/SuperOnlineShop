@@ -2,8 +2,13 @@
 @{
 	ViewBag.Title = "Home Page";
     Layout = "Masterpage.cshtml";
+	var query = 
+		"SELECT NodeId " +
+		"FROM BoughtProducts " +
+		"ORDER BY BoughtProducts.Count DESC";
 }
 
 <div class="post">
-	@Umbraco.RenderMacro("Top10Products", new {countToDisplay = 10})
+	<h1>Featured Products</h1>
+	@Umbraco.RenderMacro("ProductsList", new {Query = @query, ProductsCount=9})
 </div>

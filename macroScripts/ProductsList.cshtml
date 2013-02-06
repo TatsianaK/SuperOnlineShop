@@ -1,0 +1,119 @@
+﻿@using System.Linq;
+@using System.Xml;
+@inherits umbraco.MacroEngines.DynamicNodeContext
+@{
+	
+	var productsCount = int.Parse(Parameter.ProductsCount);
+	var sqlHelper = umbraco.BusinessLogic.Application.SqlHelper;
+	var query = @Parameter.Query;
+			
+	umbraco.DataLayer.SqlHelpers.SqlServer.SqlServerDataReader queryResult = sqlHelper.ExecuteReader(query);
+
+	if (queryResult.HasRecords){
+		
+		var productsList = new List<Tuple<int,string,string,int,string,string>>();
+		Tuple<int,string,string,int,string,string> product;
+		int nodeId, price;
+		string brand, model, title, pathToImage;
+		string queryResultForProduct;
+		XmlDocument productInfoAsXml = new XmlDocument();
+		int length = 0;
+		while (queryResult.Read() && length < productsCount){
+			nodeId = queryResult.GetInt("NodeId");
+			queryResultForProduct = sqlHelper.ExecuteScalar<string>("select xml from cmsContentXml where nodeId = " + nodeId);
+			if (!string.IsNullOrEmpty(queryResultForProduct)){
+
+				productInfoAsXml.LoadXml(queryResultForProduct);
+				nodeId = int.Parse(productInfoAsXml.DocumentElement.Attributes["id"].Value);
+				title = productInfoAsXml.DocumentElement.Attributes["nodeName"].Value;
+				brand = productInfoAsXml.DocumentElement.SelectSingleNode("producer/text()").Value ?? string.Empty;
+				model = productInfoAsXml.DocumentElement.SelectSingleNode("model/text()").Value ?? string.Empty;
+				price = int.Parse(productInfoAsXml.DocumentElement.SelectSingleNode("price/text()").Value ?? "0");
+				pathToImage = productInfoAsXml.DocumentElement.SelectSingleNode("image/text()").Value ?? string.Empty;
+				
+				product = new Tuple<int,string,string,int,string,string>(
+					nodeId,					//Item1 - ProductId
+					title,					//Item2 - Product Name
+					brand,					//Item3 - Product Producer
+					price,					//Item4 - Product Price
+					pathToImage,			//Item5 - Product Image
+					model					//Item6 - ProductModel
+				);
+				
+				productsList.Add(product);
+				length++;
+			}
+		}
+		
+		int columnsCount = 3;
+		string columnWidth = "33%";
+		
+		@Html.Raw("<table class=\"main tableBox_output_table\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">");
+	
+		int counter;
+		string url;
+		for (counter = 0; counter < length; counter++){
+			if (counter%columnsCount == 0){ @Html.Raw("<tr>");}
+	
+			url = @umbraco.library.NiceUrl(@productsList[counter].Item1);
+			
+			@Html.Raw(string.Format("<td allign=\"left\" style=\"width:{0}\" nowrap=\"nowrap\">", columnWidth));
+				//Start: Render Product Info
+				<div class="wrapper_pic_td">
+					<a href="@url">
+						<img width="140" height="130" border="0" alt="" src="@productsList[counter].Item5"/>
+					</a>
+				</div>
+				<div class="name desc name2_padd" align="center">
+					<a href="@url">
+						<strong>@productsList[counter].Item2</strong>
+					</a>
+				</div>
+				<table class="listing2_padd listing" cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td class="bold" align="left">Brand:</td>
+						<td align="right">@productsList[counter].Item3</td>
+					</tr>
+					<tr>
+						<td class="bold" align="left">Model:</td>
+						<td align="right">@productsList[counter].Item6</td>
+					</tr>
+					<tr>
+						<td class="bold" align="left">Price:</td>
+						<td align="right"><span class="productSpecialPrice">$@productsList[counter].Item4</span></td>
+					</tr>
+				</table>
+				<div class="bg_button2">
+					<a href="@url">
+						Details
+					</a>
+					<span>|</span>
+					<a href="@url">
+						Add To Cart
+					</a>
+				</div>
+				//End: Render Product Info
+			@Html.Raw("</td>");
+
+			if (counter%columnsCount == columnsCount - 1){
+
+				@Html.Raw("</tr>");
+
+				if (counter < length - 1){
+					@Html.Raw(string.Format("<tr><td colspan=\"{0}\" class=\"prod_line_x padd_gg\">", columnsCount*2-1));
+						<img width="1" height="1" border="0" alt="" src="/images/spacer.gif"/>
+					@Html.Raw("</td></tr>");
+				}
+	
+			}else if (counter < length - 1){
+
+				@Html.Raw("<td class=\"prod_line_y padd_vv\">");
+					<img width="1" height="1" border="0" src="/images/spacer.gif"/>
+				@Html.Raw("</td>");
+
+			}
+		}
+
+		@Html.Raw("</table>");
+	}
+}
