@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\SuperOnlineShop\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcMocks">
+      <HintPath>..\SuperOnlineShop\packages\MvcMocks.1.0.2\lib\net40\MvcMocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -62,12 +68,16 @@
   <ItemGroup>
     <Compile Include="ShoppingCartControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShoppingCartTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperOnlineShop\SuperOnlineShop.csproj">
       <Project>{1b6a2f55-62ee-4804-a006-1593a46bf804}</Project>
       <Name>SuperOnlineShop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
