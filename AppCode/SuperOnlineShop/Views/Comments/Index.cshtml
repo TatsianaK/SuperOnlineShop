@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SuperOnlineShop.Models.Comment>
+
 <div id="commentsContent">
     @if (Model != null) {
         <p>
@@ -7,9 +8,20 @@
 
         <div style="margin: 10px; display: none" id="newComment_content">
             Title:
-        <input type="text" id="newComment_title" style="width: 609px" /><br />
-            Enter your comment here
-        <textarea cols="100" id="newComment_text" rows="4"></textarea>
+            <input type="text" id="newComment_title" style="width: 609px" /><br />
+            Enter your comment here:
+            <textarea cols="100" id="newComment_text" rows="4"></textarea>
+            <br />
+           
+            <div class="rev-stars">
+                 You evaluation of the product:
+		        <a href="return false;" num="1" id="rev-star-1" class="rev-star" style="background-position: 0px 0px;"></a>
+		        <a href="return false;" num="2" id="rev-star-2" class="rev-star" style="background-position: -16px 0px;"></a>
+		        <a href="return false;" num="3" id="rev-star-3" class="rev-star" style="background-position: -16px 0px;"></a>
+		        <a href="return false;" num="4" id="rev-star-4" class="rev-star" style="background-position: -16px 0px;"></a>
+		        <a href="return false;" num="5" id="rev-star-5" class="rev-star" style="background-position: -16px 0px;"></a>
+                <input type="hidden" id="rating" value="0" />
+		    </div>
             <br />
             @Html.ActionLink("Add comment", "AddComment", null, new { id = "addCommentButton" })
         </div>
@@ -24,6 +36,8 @@
             <br />
             <div style="margin-top: 10px;">
                 <b>@Html.DisplayFor(modelItem => item.Title)</b>
+                <br />
+                <img src="@("/images/starsbig_"+item.Rating+".gif")" border="0">
                 <br />
                 @Html.DisplayFor(modelItem => item.Text)
             </div>
@@ -42,6 +56,7 @@
         $('#createButton').click(function () {
             event.preventDefault();
             $('#newComment_content').show();
+            $("#rating").attr("value",1);
         });
 
         $('#addCommentButton').click(function () {
@@ -55,6 +70,7 @@
             }
             comment.Title = $("#newComment_title").val();
             comment.Text = $("#newComment_text").val();
+            comment.Rating = $("#rating").attr("value");
 
             $.post(url, comment, function (response) {
                 $('#commentsContent').html(response);
@@ -74,6 +90,19 @@
             }
         });
 
+        $(".rev-star").click(function () {
+            num = parseInt($(this).attr("num"));
+            i = 1;
+            for (i = 1; i <= num; i++) {
+                $("#rev-star-" + i).css("background-position", "0 0");
+            }
+            for (i = num + 1; i <= 5; i++) {
+                $("#rev-star-" + i).css("background-position", "-16px 0");
+            }
+            $("#my-stars").attr("value", num);
+            $("#rating").attr("value", num);
+            return false;
+        });
 
     });
 
