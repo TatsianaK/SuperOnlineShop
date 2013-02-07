@@ -1,3 +1,81 @@
-﻿@model SuperOnlineShop.Models.Comment
+﻿@model IEnumerable<SuperOnlineShop.Models.Comment>
+<div id="commentsContent">
+    @if (Model != null) {
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { id = "createButton" })
+        </p>
 
-<input type="submit" value="Add comment" />
+        <div style="margin: 10px; display: none" id="newComment_content">
+            Title:
+        <input type="text" id="newComment_title" style="width: 609px" /><br />
+            Enter your comment here
+        <textarea cols="100" id="newComment_text" rows="4"></textarea>
+            <br />
+            @Html.ActionLink("Add comment", "AddComment", null, new { id = "addCommentButton" })
+        </div>
+
+   
+        if (Model.Count() > 0) {
+            foreach (var item in Model) {
+        <div style="border-bottom: 1px solid gray; margin: 10px">
+            <b>@Html.DisplayFor(modelItem => item.UserName)</b>
+            <br />
+            <span class="grayText">@Html.DisplayFor(modelItem => item.SubmitDate)</span>
+            <br />
+            <div style="margin-top: 10px;">
+                <b>@Html.DisplayFor(modelItem => item.Title)</b>
+                <br />
+                @Html.DisplayFor(modelItem => item.Text)
+            </div>
+        </div>
+            }
+        } else {
+        @: Add first comment!   
+    }
+    } else {
+        @: Product doesn't exist!  
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#createButton').click(function () {
+            event.preventDefault();
+            $('#newComment_content').show();
+        });
+
+        $('#addCommentButton').click(function () {
+            event.preventDefault();
+            var url = $(this).attr('href');
+            var comment = {};
+
+            var params = jQuery.parseQuerystring();
+            if (params != null && params["id"] != null) {
+                comment.ProductId = params["id"];
+            }
+            comment.Title = $("#newComment_title").val();
+            comment.Text = $("#newComment_text").val();
+
+            $.post(url, comment, function (response) {
+                $('#commentsContent').html(response);
+            });
+        });
+
+        jQuery.extend({
+            parseQuerystring: function () {
+                var nvpair = {};
+                var qs = window.location.search.replace('?', '');
+                var pairs = qs.split('&');
+                $.each(pairs, function (i, v) {
+                    var pair = v.split('=');
+                    nvpair[pair[0].toLowerCase()] = pair[1];
+                });
+                return nvpair;
+            }
+        });
+
+
+    });
+
+</script>
+
