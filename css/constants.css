@@ -76,6 +76,7 @@ SPAN.errorText 						{color: #ff0000;}
 .width2_100 input		{width:55%;}
 .width2_100 select		{width:55%;}
 .width3_100 input		{width:100%;}
+.width_100              {width:100%!important}
 /* ************************************************************************************* */
 .img_middle	img			{vertical-align:middle; margin:1px 10px 0px 0px;}
 .img_middle				{padding:3px 0px 3px 0px;}
@@ -91,6 +92,8 @@ SPAN.errorText 						{color: #ff0000;}
 .fl_left							{float:left;}
 .fl_right							{float:right;}
 .cl_both							{clear:both; line-height:0px; font-size:0px;}
+.al_justify                         {text-align: justify;}
+
 /* ************************************************************************************* */    
 .left_part				{float:left; width:75%}
 .right_part				{float:right;padding:0px 0px 0px 0px;}
