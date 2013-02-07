@@ -10,13 +10,39 @@ How it works:
   
 NOTE: It is safe to remove this comment (anything between @ * * @), the code that generates the list is only the below!
 *@
-
+@using System.Linq;
 @inherits umbraco.MacroEngines.DynamicNodeContext
+@{
+	int maxProductsCount = 5;
+}
 
-@{ var numberOfItems = 10; }
-<ul>
-    @foreach (var item in @Model.Children.Where("Visible").OrderBy("UpdateDate").Take(numberOfItems))
-    {
-        <li><a href="@item.Url">@item.Name</a></li>
-    }
-</ul>
+	@foreach (var category in @Model.Children.Where("Visible").OrderBy("Name"))
+	{
+		if (category.Children.Any()){
+			<div class="infoBox_ cl_both">
+				<div class="infoBox__ al_left">
+					<h2><a href="@category.Url">@category.Name</a></h2>
+					<table>
+						<tr>
+							<td rowspan="2">
+								<a href="@category.Url"><img border="0" alt="@category.Name" width="140" height="130" title="@category.Name" src="@category.Image" /></a>
+							</td>
+							<td class="width_100 description">
+								<ul>
+									@{int counter = 0;}
+									@foreach(var product in category.Children.OrderBy("Name")){
+										<li><a class="item" href="@product.NiceUrl">@product.Name</a></li>
+										
+										if (++@counter > maxProductsCount){ break;}
+									}
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td class="result_right"><a class="moreLink" href="@category.Url">More...</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		}
+	}
