@@ -15,10 +15,10 @@ namespace SuperOnlineShop.Controllers {
             List<Comment> result = new List<Comment>();
             if (id.HasValue) {
                 List<Comment> comments = new List<Comment>();
-                comments.Add(new Comment { ProductId = 1078, UserName = "Tanya", Title = "Very good device", Text = "Cool device! Buy it!", SubmitDate = DateTime.Now });
-                comments.Add(new Comment { ProductId = 1079, UserName = "Vanya", Title = "Worth to try", Text = "Cool device! Buy it!", SubmitDate = DateTime.Now });
-                comments.Add(new Comment { ProductId = 1079, UserName = "Nastishka", Title = "Good device", Text = "Cool device!", SubmitDate = DateTime.Now });
-                comments.Add(new Comment { ProductId = 1078, UserName = "Tanya", Title = "Not bad", Text = "Not bad", SubmitDate = DateTime.Now });
+                comments.Add(new Comment { ProductId = 1078, UserName = "Tanya", Title = "Very good device", Text = "Cool device! Buy it!", SubmitDate = DateTime.Now, Rating = 4 });
+                comments.Add(new Comment { ProductId = 1079, UserName = "Vanya", Title = "Worth to try", Text = "Cool device! Buy it!", SubmitDate = DateTime.Now, Rating = 2 });
+                comments.Add(new Comment { ProductId = 1079, UserName = "Nastishka", Title = "Good device", Text = "Cool device!", SubmitDate = DateTime.Now, Rating = 5 });
+                comments.Add(new Comment { ProductId = 1078, UserName = "Tanya", Title = "Not bad", Text = "Not bad", SubmitDate = DateTime.Now, Rating = 3 });
             
                 result = comments.Where(comment => comment.ProductId == id).ToList();
                 return View(result);
